@@ -1,0 +1,33 @@
+<div class = "login-wrapper">
+  <h2 class = "login-brand">Simple Updates</h2>
+  <h3 class = "form-title">Create new Team</h3>
+    
+  <div class="panel panel-default panel-login"> 
+      
+    <form id = "signupForm" [formGroup] = "signupForm" (ngSubmit) = "signup()">
+              
+      <input class = "form-control" type="text" id="team" placeholder="Team Name" formControlName = "teamName">
+       
+      <div class = "input-group">
+        <span class="input-group-addon">
+            <!--<span class= "glyphicon glyphicon-envelope"></span>-->
+            <span class="octicon octicon-mail"></span>
+        </span> 
+        <input class = "form-control" type="email" name="signupEmail" placeholder="Email" formControlName = "email">
+      </div>
+        
+      <div class = "input-group"> 
+        <span class="input-group-addon">
+            <!--<span class = "glyphicon glyphicon-asterisk"></span>-->
+            <span class="octicon octicon-key"></span>
+          </span>  
+        <input class = "form-control" type="password" name="signupPassword" placeholder="Password" formControlName = "password">
+      </div>
+          
+      <input class = "form-control btn btn-primary" type="submit" value="Signup">
+    
+    </form>
+      
+  </div>
+</div>
+

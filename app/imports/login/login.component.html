@@ -1,0 +1,29 @@
+<div class = "login-wrapper">
+    <h2 class = "login-brand">Simple Updates</h2>
+      
+    <div class="panel panel-default panel-login">
+      <form [formGroup]="loginForm" (ngSubmit) = "login()">
+          
+        <div class = "input-group email">
+            <span class="input-group-addon">
+                <!--<span class= "glyphicon glyphicon-envelope"></span>-->
+                <span class="octicon octicon-mail"></span>
+            </span>
+        <input class = "form-control" type="email" name="loginEmail" placeholder="Email" formControlName="email">
+        </div>
+          
+        <div class = "input-group password"> 
+            <span class="input-group-addon">
+                <!--<span class = "glyphicon glyphicon-asterisk"></span>-->
+                <span class="octicon octicon-key"></span>
+            </span>    
+        <input class = "form-control" type="password" name="loginPassword" placeholder="Password" formControlName="password">          
+        </div>   
+          
+        <input class = "form-control btn btn-primary" type="submit" name = "loginBtn" value="Login">
+        <a id = "sign-up-link" href = "#" [routerLink] = "['/signup']">Sign up</a>
+      </form>
+    </div>
+  </div>
+
+
