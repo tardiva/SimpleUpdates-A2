@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var dropdown_component_1 = require('../utils/dropdown.component');
 var projects_data_service_1 = require('./projects-data.service');
+var user_data_service_1 = require('../login/user-data.service');
 var ProjectFormComponent = (function () {
-    function ProjectFormComponent(formBuilder, projectsDataService) {
+    function ProjectFormComponent(formBuilder, projectsDataService, userService) {
         this.formBuilder = formBuilder;
         this.projectsDataService = projectsDataService;
+        this.userService = userService;
         this.closeForm = new core_1.EventEmitter();
         this.newProject = new core_1.EventEmitter();
     }
@@ -24,7 +26,7 @@ var ProjectFormComponent = (function () {
             name: ['', forms_1.Validators.required],
             manager: ['', forms_1.Validators.required]
         });
-        this.usersOptions = [{ key: 1, label: 'Anna Smith' }]; // stub 
+        this.getManagersList();
     };
     ProjectFormComponent.prototype.addProject = function () {
         var _this = this;
@@ -33,6 +35,10 @@ var ProjectFormComponent = (function () {
                 .then(function () { return _this.newProject.emit(); });
             this.resetForm();
         }
+    };
+    ProjectFormComponent.prototype.getManagersList = function () {
+        var _this = this;
+        this.userService.getUsers().then(function (users) { return _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; }); });
     };
     ProjectFormComponent.prototype.resetForm = function () {
         /*this.newProjectForm.controls['name']['updateValue']('');*/
@@ -53,7 +59,7 @@ var ProjectFormComponent = (function () {
             templateUrl: 'app/imports/projects/project-form.component.html',
             directives: [dropdown_component_1.DropdownComponent]
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService, user_data_service_1.UserService])
     ], ProjectFormComponent);
     return ProjectFormComponent;
 }());

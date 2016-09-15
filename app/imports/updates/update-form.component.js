@@ -40,7 +40,6 @@ var UpdateFormComponent = (function () {
         var _this = this;
         console.log(this.newUpdateForm.valid + " " + this.newUpdateForm.dirty);
         if (this.newUpdateForm.valid) {
-            this.newUpdateForm.value.updatedBy = 1; //temp value 
             this.updatesDataService.add(this.newUpdateForm.value)
                 .then(function () { return _this.newUpdate.emit(); });
             this.resetForm();

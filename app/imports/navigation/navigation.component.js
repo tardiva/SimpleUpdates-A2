@@ -10,20 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var auth_service_1 = require('../login/auth.service');
+var user_data_service_1 = require('../login/user-data.service');
 var NavigationComponent = (function () {
-    function NavigationComponent(authService) {
+    function NavigationComponent(authService, userService) {
         this.authService = authService;
-        this.currentUserName = this.authService.getCurrentUser().fullName;
+        this.userService = userService;
     }
+    NavigationComponent.prototype.getCurrentUser = function () {
+        var _this = this;
+        this.userService.getCurrentUser().then(function (user) { _this.currentUserName = user.first_name + " " + user.last_name; console.log(_this.currentUserName); });
+    };
     NavigationComponent.prototype.logout = function () {
         this.authService.logout();
+    };
+    NavigationComponent.prototype.ngOnInit = function () {
+        this.getCurrentUser();
     };
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'navigation',
             templateUrl: 'app/imports/navigation/navigation.component.html'
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, user_data_service_1.UserService])
     ], NavigationComponent);
     return NavigationComponent;
 }());

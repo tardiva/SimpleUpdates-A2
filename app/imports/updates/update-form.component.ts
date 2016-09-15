@@ -55,7 +55,6 @@ export class UpdateFormComponent implements OnInit {
       
      console.log(this.newUpdateForm.valid +" "+ this.newUpdateForm.dirty); 
      if (this.newUpdateForm.valid) {
-       this.newUpdateForm.value.updatedBy = 1; //temp value 
        this.updatesDataService.add(this.newUpdateForm.value)
            .then(()=>this.newUpdate.emit());
        this.resetForm();
@@ -71,7 +70,7 @@ export class UpdateFormComponent implements OnInit {
       }
   }
     
-  private getProjectsList(): void {
+  private getProjectsList() {
       
      this.projectsDataService.getProjects()
          .then(projects => this.projectsOptions = projects.map((item) => {return {key: item.id, label: item.name}}));

@@ -22,15 +22,14 @@ constructor(private projectsDataService: ProjectsDataService, private updatesDat
     
 }
 
-getProjects(): void {
-    //this.projectsDataService.getProjects().then(projects => this.projects = projects);
+getProjectsWithLastUpdate(): void {
     this.updatesDataService.getLastUpdates().then(projects => this.projects = projects)
             
 }
     
 ngOnInit(): void {
-    this.getProjects();
-    //console.log(this.projects);
+    this.getProjectsWithLastUpdate();
+    
 }    
    
     

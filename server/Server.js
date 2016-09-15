@@ -1,9 +1,13 @@
 var express = require("express");
 var mysql   = require("mysql");
 var bodyParser  = require("body-parser");
-var md5 = require('MD5');
+//var md5 = require('MD5');
+//var jwt = require('jwt-simple');
 var rest = require("./REST.js");
+//var jwtAuth = require("./jwtauth.js"); 
 var app  = express();
+
+app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 
 function REST(){
     var self = this;
@@ -33,14 +37,15 @@ REST.prototype.configureExpress = function(connection) {
     var self = this;
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
+           
     var router = express.Router();
 
     app.use('/node_modules', express.static('node_modules'));
     app.use('/app', express.static('app'));
     app.use('/', express.static('public'));
     
-    app.use('/api', router);
-    var rest_router = new rest(router,connection,md5);
+    app.use('/api', function(req,res,next){req.tokenKey = app.get('jwtTokenSecret'); req.connection = connection; next();}, router);
+    var rest_router = new rest(router,connection);
     
     app.use(function (req, res) {res.sendFile("index.html", { root: './public' });});
 
@@ -59,3 +64,5 @@ REST.prototype.stop = function(err) {
 }
 
 new REST();
+
+

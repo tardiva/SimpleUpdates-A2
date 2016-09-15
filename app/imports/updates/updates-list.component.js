@@ -18,14 +18,12 @@ var UpdatesListComponent = (function () {
         this.projectsDataService = projectsDataService;
         this.updatesDataService = updatesDataService;
     }
-    UpdatesListComponent.prototype.getProjects = function () {
+    UpdatesListComponent.prototype.getProjectsWithLastUpdate = function () {
         var _this = this;
-        //this.projectsDataService.getProjects().then(projects => this.projects = projects);
         this.updatesDataService.getLastUpdates().then(function (projects) { return _this.projects = projects; });
     };
     UpdatesListComponent.prototype.ngOnInit = function () {
-        this.getProjects();
-        //console.log(this.projects);
+        this.getProjectsWithLastUpdate();
     };
     UpdatesListComponent = __decorate([
         core_1.Component({

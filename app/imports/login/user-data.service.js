@@ -10,28 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var httpAuth_service_1 = require('../utils/httpAuth.service');
-var UpdatesDataService = (function () {
-    function UpdatesDataService(httpAuth) {
+var UserService = (function () {
+    function UserService(httpAuth) {
         this.httpAuth = httpAuth;
-        this.updatesUrl = 'http://localhost:8000/api/updates';
-        this.lastUpdatesUrl = 'http://localhost:8000/api/last_updates';
+        this.currentUserUrl = 'http://localhost:8000/api/current_user';
+        this.usersUrl = 'http://localhost:8000/api/users';
     }
-    UpdatesDataService.prototype.add = function (update) {
-        var url = this.updatesUrl;
-        return this.httpAuth
-            .post(url, update)
-            .then(function () { return null; });
-    };
-    UpdatesDataService.prototype.getLastUpdates = function () {
+    UserService.prototype.getCurrentUser = function () {
         var _this = this;
-        return this.httpAuth.get(this.lastUpdatesUrl)
-            .then(function (projects) { return _this.projects = projects; });
+        return this.httpAuth.get(this.currentUserUrl)
+            .then(function (user) { return _this.user = user; });
     };
-    UpdatesDataService = __decorate([
+    UserService.prototype.getUsers = function () {
+        var _this = this;
+        return this.httpAuth.get(this.usersUrl)
+            .then(function (users) { return _this.users = users; });
+    };
+    UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [httpAuth_service_1.httpAuth])
-    ], UpdatesDataService);
-    return UpdatesDataService;
+    ], UserService);
+    return UserService;
 }());
-exports.UpdatesDataService = UpdatesDataService;
-//# sourceMappingURL=updates-data.service.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user-data.service.js.map

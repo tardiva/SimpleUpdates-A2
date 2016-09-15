@@ -18,13 +18,11 @@ var AuthService = (function () {
         this.http = http;
         this.loginUrl = 'http://localhost:8000/api/login';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.token = localStorage.getItem('auth_token');
     }
     AuthService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
-    };
-    AuthService.prototype.getCurrentUser = function () {
-        return { fullName: 'Anna Smith' };
     };
     AuthService.prototype.login = function (user) {
         var _this = this;
@@ -32,12 +30,20 @@ var AuthService = (function () {
         return this.http
             .post(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
-            .then(function (response) { if (response.json().Success === true) {
-            _this.router.navigate(['/updates']);
-        } })
+            .then(function (response) {
+            var token = response.json() && response.json().Token;
+            if (token) {
+                _this.token = token;
+                localStorage.setItem('auth_token', token);
+                _this.router.navigate(['/updates']);
+            }
+            else { } //user not found error
+        })
             .catch(this.handleError);
     };
     AuthService.prototype.logout = function () {
+        this.token = null;
+        localStorage.removeItem('auth_token');
         this.router.navigate(['/']);
     };
     AuthService = __decorate([

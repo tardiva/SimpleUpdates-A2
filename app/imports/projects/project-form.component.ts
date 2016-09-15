@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DropdownComponent } from '../utils/dropdown.component';
 
 import { ProjectsDataService } from './projects-data.service';
+import { UserService } from '../login/user-data.service';
+
+import { User } from '../login/user';
 
 @Component({
 
@@ -18,9 +21,11 @@ export class ProjectFormComponent implements OnInit {
   
   private newProjectForm: FormGroup;
   usersOptions: any[];
+    
 
   constructor(private formBuilder: FormBuilder,
-              private projectsDataService: ProjectsDataService) {
+              private projectsDataService: ProjectsDataService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -29,7 +34,7 @@ export class ProjectFormComponent implements OnInit {
         name: ['', Validators.required],
         manager: ['', Validators.required]  
      });
-     this.usersOptions = [{key: 1, label: 'Anna Smith'}]; // stub 
+     this.getManagersList();
   }
     
   private addProject(): void {
@@ -40,6 +45,11 @@ export class ProjectFormComponent implements OnInit {
         this.resetForm();    
       }
   }
+    
+  private getManagersList() {
+      
+     this.userService.getUsers().then(users => this.usersOptions = users.map((item) => {return {key: item.id, label: item.first_name + ' ' + item.last_name}})) 
+  }    
     
   private resetForm(): void {
 

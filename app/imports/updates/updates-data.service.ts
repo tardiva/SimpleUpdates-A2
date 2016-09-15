@@ -1,44 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
 
+import { httpAuth } from '../utils/httpAuth.service';
 import { Update } from './update';
 
 
 @Injectable()
-export class UpdatesDataService{
-  
-constructor(private http: Http) {
-         
-  }
-        
-    private updatesUrl = 'http://localhost:8000/api/updates';
-    private lastUpdatesUrl = 'http://localhost:8000/api/last_updates';
-    private headers = new Headers({'Content-Type': 'application/json'});
+export class UpdatesDataService {
+    
+ private updatesUrl: string = 'http://localhost:8000/api/updates';
+ private lastUpdatesUrl: string = 'http://localhost:8000/api/last_updates';
+ private projects: any[];
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
+ constructor(private httpAuth: httpAuth) {
+         
+ }   
     
-    public add(update: Update): Promise<void> {
+ public add(update: Update): Promise<void> {
         
-        const url = this.updatesUrl;
-        return this.http
-              .post(url, JSON.stringify(update), {headers: this.headers})
-              .toPromise()
+   const url = this.updatesUrl;
+                
+   return this.httpAuth
+              .post(url, update)
               .then(()=> null)
-              .catch(this.handleError);
-    }
+  }
     
-    public getLastUpdates(): Promise<any[]> {
+  public getLastUpdates(): Promise<any[]> {
               
-       return this.http.get(this.lastUpdatesUrl)
-               .toPromise()
-               .then(response => response.json().Updates as any[])
-               .catch(this.handleError);     
-         } 
+       return this.httpAuth.get(this.lastUpdatesUrl)
+                  .then(projects => this.projects = projects)
+  }  
+    
 }
 
- 
 

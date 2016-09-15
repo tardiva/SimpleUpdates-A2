@@ -9,7 +9,8 @@
     '@angular':                   'node_modules/@angular',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     'rxjs':                       'node_modules/rxjs',
-    'ts-md5':                     'node_modules/ts-md5'
+    'ts-md5':                     'node_modules/ts-md5',
+    'angular2-jwt':               'node_modules/angular2-jwt'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {

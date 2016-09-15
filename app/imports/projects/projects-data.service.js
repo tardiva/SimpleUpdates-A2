@@ -9,36 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/toPromise');
+var httpAuth_service_1 = require('../utils/httpAuth.service');
 var ProjectsDataService = (function () {
-    function ProjectsDataService(http) {
-        this.http = http;
-        //private projects : any;
+    function ProjectsDataService(httpAuth) {
+        this.httpAuth = httpAuth;
         this.projectsUrl = 'http://localhost:8000/api/projects';
-        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    ProjectsDataService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    };
-    ProjectsDataService.prototype.getProjects = function () {
-        return this.http.get(this.projectsUrl)
-            .toPromise()
-            .then(function (response) { return response.json().Projects; })
-            .catch(this.handleError);
-    };
     ProjectsDataService.prototype.addProject = function (project) {
         var url = this.projectsUrl;
-        return this.http
-            .post(url, JSON.stringify(project), { headers: this.headers })
-            .toPromise()
-            .then(function () { return null; })
-            .catch(this.handleError);
+        return this.httpAuth
+            .post(url, project)
+            .then(function () { return null; });
+    };
+    ProjectsDataService.prototype.getProjects = function () {
+        var _this = this;
+        return this.httpAuth.get(this.projectsUrl)
+            .then(function (projects) { return _this.projects = projects; });
     };
     ProjectsDataService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [httpAuth_service_1.httpAuth])
     ], ProjectsDataService);
     return ProjectsDataService;
 }());
