@@ -1,20 +1,7 @@
 <form id = "new-update-form" class = "new-update" [formGroup]="newUpdateForm">
 
  <div class = "form-content">
-  <!--<div class = "status">
-    <div class="btn-group">
-      <button class="btn btn-secondary btn-sm main-dd-btn" type="button">Status</button>
-      <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" type="button" >
-        <span class="sr-only"></span>
-      </button>
-      <div class="dropdown-menu">
-        <button class="dropdown-item" ><div class ="circle red"></div>High</button>
-        <button class="dropdown-item" ><div class ="circle yellow"></div>Medium</button>
-        <button class="dropdown-item" ><div class ="circle green"></div>Low</button>
-      </div>
-    </div>
-  </div>-->
-     
+      
   <div class = "status">
     <dropdown [options] = "statusesOptions" [placeholder] = "'Status'" [hasErrors] = "formErrors.status" formControlName="status"></dropdown>
   </div>   

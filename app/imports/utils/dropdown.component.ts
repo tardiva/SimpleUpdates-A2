@@ -17,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class DropdownComponent implements ControlValueAccessor, OnInit {
     
     private selectedLabel: string;
+    private selectedIcon: string;
     
     constructor() {}
     
@@ -27,7 +28,8 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     writeValue(value: any) {
        if (value !== undefined) {
         this.selectedValue = value;
-        this.selectedLabel = this.placeholder;   
+        this.selectedLabel = this.placeholder;
+        this.selectedIcon = '';   
        }
         
     }
@@ -43,6 +45,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
     onSelect(option) {
         this.selectedValue = option.key;
         this.selectedLabel = option.label;
+        this.selectedIcon = option.icon;
         
         this.propagateChange(this.selectedValue);
         

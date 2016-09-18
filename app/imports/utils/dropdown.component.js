@@ -20,6 +20,7 @@ var DropdownComponent = (function () {
         if (value !== undefined) {
             this.selectedValue = value;
             this.selectedLabel = this.placeholder;
+            this.selectedIcon = '';
         }
     };
     DropdownComponent.prototype.registerOnChange = function (fn) {
@@ -29,6 +30,7 @@ var DropdownComponent = (function () {
     DropdownComponent.prototype.onSelect = function (option) {
         this.selectedValue = option.key;
         this.selectedLabel = option.label;
+        this.selectedIcon = option.icon;
         this.propagateChange(this.selectedValue);
     };
     __decorate([

@@ -13,22 +13,26 @@ module.exports = function(req, res, next) {
                 res.status(401).send('Unauthorized');
         }
             else {
-                var query = "SELECT `id` FROM ?? WHERE `id` = ?";
-                var table = ["users", decoded.iss];
+                var query = "SELECT `id`, `tenant_id` FROM `users` WHERE `id` = ?";
+                var table = [decoded.iss];
                 query = mysql.format(query,table);
                 req.connection.query(query,function(err,rows){
                     if(err) {
-                        res.json({"Error" : true, "Message" : "Error executing MySQL query"});}
-                    else if (!rows[0]){
-                        res.status(401).send('Unauthorized');}
+                        res.status(500).send('Internal Server Error');
+                    }
                     else if (rows[0]) {
                         req.user_id = decoded.iss;
-                                      next();}
+                        req.tenant_id = rows[0].tenant_id;
+                        next();
+                    }
+                    
+                    else {res.status(401).send('Unauthorized');}
+                    
                 })
             }
 
         } catch (err) {
-        res.status(401).send('Unauthorized');
+        res.status(500).send('Internal Server Error');
         }
         } else {
         res.status(401).send('Unauthorized');

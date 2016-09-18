@@ -147,6 +147,14 @@ section.new-update {
 text-decoration: none
 }
 
+.dropdown-item .circle,  .dropdown-item span, .main-dd-btn .circle, .main-dd-btn span {
+    vertical-align: middle;
+}
+
+.dropdown-item span, .main-dd-btn span {
+    display: inline-block;
+}
+
 /*-------UPDATES LIST--------*/
 
 .updates {

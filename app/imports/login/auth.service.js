@@ -35,6 +35,7 @@ var AuthService = (function () {
             if (token) {
                 _this.token = token;
                 localStorage.setItem('auth_token', token);
+                //this.currentUser = response.json().User;  
                 _this.router.navigate(['/updates']);
             }
             else { } //user not found error
@@ -42,6 +43,7 @@ var AuthService = (function () {
             .catch(this.handleError);
     };
     AuthService.prototype.logout = function () {
+        //this.currentUser = null;  
         this.token = null;
         localStorage.removeItem('auth_token');
         this.router.navigate(['/']);

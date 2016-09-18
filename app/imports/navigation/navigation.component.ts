@@ -33,6 +33,6 @@ export class NavigationComponent implements OnInit {
     ngOnInit() {
         
         this.getCurrentUser();
-       
+        //this.currentUserName = this.authService.currentUser.first_name + ' ' + this.authService.currentUser.last_name;
     }
 }

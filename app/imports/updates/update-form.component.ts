@@ -38,9 +38,9 @@ export class UpdateFormComponent implements OnInit {
      });
      this.getProjectsList();
       
-     this.statusesOptions = [{key:1, label: 'High'},
-                             {key:2, label: 'Medium'},
-                             {key:3, label: 'Low'}];
+     this.statusesOptions = [{key:1, label: 'High', icon: 'circle red'},
+                             {key:2, label: 'Medium', icon: 'circle yellow'},
+                             {key:3, label: 'Low', icon: 'circle green'}];
           
      this.newUpdateForm.valueChanges
          .subscribe(data => this.onValueChanged(data));

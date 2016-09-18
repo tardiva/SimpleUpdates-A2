@@ -25,6 +25,7 @@ var NavigationComponent = (function () {
     };
     NavigationComponent.prototype.ngOnInit = function () {
         this.getCurrentUser();
+        //this.currentUserName = this.authService.currentUser.first_name + ' ' + this.authService.currentUser.last_name;
     };
     NavigationComponent = __decorate([
         core_1.Component({

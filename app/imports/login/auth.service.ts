@@ -13,6 +13,7 @@ export class AuthService {
     private headers = new Headers({'Content-Type': 'application/json'});
     
     public token: string;
+    public currentUser: User;
         
     constructor(private router: Router, private http: Http) {
         this.token = localStorage.getItem('auth_token');
@@ -34,6 +35,7 @@ export class AuthService {
                       if (token) {
                         this.token = token; 
                         localStorage.setItem('auth_token', token);
+                        //this.currentUser = response.json().User;  
                         this.router.navigate(['/updates']);}
                       else {} //user not found error
               })
@@ -43,8 +45,9 @@ export class AuthService {
     
      public logout() {
      
+        //this.currentUser = null;  
         this.token = null;
-        localStorage.removeItem('auth_token'); 
+        localStorage.removeItem('auth_token');
         this.router.navigate(['/']);
        
    }
