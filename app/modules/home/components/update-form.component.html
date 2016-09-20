@@ -1,0 +1,25 @@
+<form id = "new-update-form" class = "new-update" [formGroup]="newUpdateForm">
+
+ <div class = "form-content">
+      
+  <div class = "status">
+    <dropdown [options] = "statusesOptions" [placeholder] = "'Status'" [hasErrors] = "formErrors.status" formControlName="status"></dropdown>
+  </div>   
+    
+  <div class = "project">
+    <dropdown [options] = "projectsOptions" [placeholder] = "'Project'" [hasErrors] = "formErrors.project" formControlName="project"></dropdown>
+  </div>
+       
+  <div class = "text">    
+    <textarea class="form-control" [class.has-errors] = "formErrors.text" id = "new-update-text" formControlName="text" (keyup) = "resize($event)"></textarea>
+  </div>
+       
+  <div class = "buttons">
+    <div class = "pull-sm-right">
+      <button type="submit" class="btn btn-primary btn-sm" (click) = "addUpdate()">Submit</button>
+      <button type="button" class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()">Cancel</button>
+    </div>
+  </div>
+ </div>
+    
+</form>

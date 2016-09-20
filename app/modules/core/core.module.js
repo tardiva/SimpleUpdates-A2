@@ -9,24 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_routes_1 = require('./app.routes');
-var app_component_1 = require('./app.component');
-var core_module_1 = require('./modules/core/core.module');
-var login_module_1 = require('./modules/login/login.module');
-var AppModule = (function () {
-    function AppModule() {
+var common_1 = require('@angular/common');
+var http_1 = require('@angular/http');
+var httpAuth_service_1 = require('../../services/httpAuth.service');
+var auth_service_1 = require('../../services/auth.service');
+var user_data_service_1 = require('../../services/user-data.service');
+var CoreModule = (function () {
+    function CoreModule() {
     }
-    AppModule = __decorate([
+    CoreModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, app_routes_1.routing, core_module_1.CoreModule, login_module_1.LoginModule],
-            declarations: [app_component_1.AppComponent],
-            providers: [],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [common_1.CommonModule, http_1.HttpModule],
+            declarations: [],
+            exports: [],
+            providers: [httpAuth_service_1.httpAuth, auth_service_1.AuthService, user_data_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], CoreModule);
+    return CoreModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.CoreModule = CoreModule;
+//# sourceMappingURL=core.module.js.map

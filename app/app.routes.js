@@ -1,14 +1,19 @@
 "use strict";
 var router_1 = require('@angular/router');
-var login_component_1 = require('./imports/login/login.component');
-var signup_component_1 = require('./imports/login/signup.component');
-var updates_list_component_1 = require('./imports/updates/updates-list.component');
-var projects_list_component_1 = require('./imports/projects/projects-list.component');
-var APP_ROUTES = [
-    { path: '', component: login_component_1.LoginFormComponent },
-    { path: 'signup', component: signup_component_1.SignupFormComponent },
-    { path: 'updates', component: updates_list_component_1.UpdatesListComponent },
-    { path: 'projects', component: projects_list_component_1.ProjectsListComponent }
+var login_component_1 = require('./modules/login/components/login.component');
+var signup_component_1 = require('./modules/login/components/signup.component');
+/*const APP_ROUTES: Routes = [
+
+    { path: '', component: LoginFormComponent },
+    { path: 'signup', component: SignupFormComponent }
+];*/
+var loginRoutes = [
+    { path: 'login', component: login_component_1.LoginFormComponent },
+    { path: 'signup', component: signup_component_1.SignupFormComponent }
 ];
+var homeRoutes = [
+    { path: '', loadChildren: 'app/modules/home/home.module#HomeModule' },
+];
+var APP_ROUTES = loginRoutes.concat(homeRoutes);
 exports.routing = router_1.RouterModule.forRoot(APP_ROUTES);
 //# sourceMappingURL=app.routes.js.map

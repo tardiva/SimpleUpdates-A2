@@ -9,24 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_routes_1 = require('./app.routes');
-var app_component_1 = require('./app.component');
-var core_module_1 = require('./modules/core/core.module');
-var login_module_1 = require('./modules/login/login.module');
-var AppModule = (function () {
-    function AppModule() {
+var forms_1 = require('@angular/forms');
+var app_routes_1 = require('../../app.routes');
+var login_component_1 = require('./components/login.component');
+var signup_component_1 = require('./components/signup.component');
+var LoginModule = (function () {
+    function LoginModule() {
     }
-    AppModule = __decorate([
+    LoginModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, app_routes_1.routing, core_module_1.CoreModule, login_module_1.LoginModule],
-            declarations: [app_component_1.AppComponent],
-            providers: [],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [forms_1.ReactiveFormsModule, app_routes_1.routing],
+            declarations: [login_component_1.LoginFormComponent, signup_component_1.SignupFormComponent],
+            exports: [login_component_1.LoginFormComponent, signup_component_1.SignupFormComponent],
+            providers: []
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], LoginModule);
+    return LoginModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.LoginModule = LoginModule;
+//# sourceMappingURL=login.module.js.map

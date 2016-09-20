@@ -9,24 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_routes_1 = require('./app.routes');
-var app_component_1 = require('./app.component');
-var core_module_1 = require('./modules/core/core.module');
-var login_module_1 = require('./modules/login/login.module');
-var AppModule = (function () {
-    function AppModule() {
+var shared_module_1 = require('../shared/shared.module');
+var admin_routes_1 = require('./admin.routes');
+var projects_list_component_1 = require('./components/projects-list.component');
+var project_form_component_1 = require('./components/project-form.component');
+var AdminModule = (function () {
+    function AdminModule() {
     }
-    AppModule = __decorate([
+    AdminModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, app_routes_1.routing, core_module_1.CoreModule, login_module_1.LoginModule],
-            declarations: [app_component_1.AppComponent],
-            providers: [],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [shared_module_1.SharedModule, admin_routes_1.adminRouting],
+            declarations: [projects_list_component_1.ProjectsListComponent, project_form_component_1.ProjectFormComponent],
+            exports: [],
+            providers: []
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], AdminModule);
+    return AdminModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.AdminModule = AdminModule;
+//# sourceMappingURL=admin.module.js.map

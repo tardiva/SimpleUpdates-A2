@@ -1,0 +1,21 @@
+<article class = "last-update col-sm-10">
+        
+   <div class = "last-update-header col-sm-10">
+       
+     <div class = "circle-wrapper">
+         
+        <div class ="circle" *ngIf="!project.status"></div>
+        <div class ="circle" *ngIf="project.status" 
+             [ngClass] = "{red: (project.status == 1), yellow: (project.status == 2), green: (project.status == 3)}"></div> 
+                
+     </div>
+       
+     <div class="project-name">{{project.name}}</div>
+       
+   </div>
+      
+   <div class ="update-info col-sm-10" *ngIf="project.date_created"><span class = "updated-by">{{project.first_name}} {{project.last_name}}</span> on <span class = "updated-at">{{project.date_created | date: 'MMM d' }}</span></div>
+   <div class ="update-text col-sm-10" *ngIf="project.text">{{project.text}}</div>
+   <div class ="update-text col-sm-10" *ngIf="!(project.text)">There's no updates for this project yet.</div>
+              
+  </article>   

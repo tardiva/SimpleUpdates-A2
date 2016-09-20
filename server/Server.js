@@ -48,7 +48,7 @@ REST.prototype.configureExpress = function(connection) {
     
     var rest_router = new rest(router,connection);
     
-    app.use(['/updates', '/projects', 'signup'], function (req, res) {res.sendFile("index.html", { root: './public' });});
+    app.use(['/login', '/updates', '/projects', '/signup', '/home'], function (req, res) {res.sendFile("index.html", { root: './public' });});
 
     self.startServer();
 }

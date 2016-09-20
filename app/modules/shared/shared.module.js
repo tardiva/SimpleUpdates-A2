@@ -9,24 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var app_routes_1 = require('./app.routes');
-var app_component_1 = require('./app.component');
-var core_module_1 = require('./modules/core/core.module');
-var login_module_1 = require('./modules/login/login.module');
-var AppModule = (function () {
-    function AppModule() {
+var common_1 = require('@angular/common');
+var forms_1 = require('@angular/forms');
+var dropdown_component_1 = require('./components/dropdown.component');
+var SharedModule = (function () {
+    function SharedModule() {
     }
-    AppModule = __decorate([
+    SharedModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, app_routes_1.routing, core_module_1.CoreModule, login_module_1.LoginModule],
-            declarations: [app_component_1.AppComponent],
-            providers: [],
-            bootstrap: [app_component_1.AppComponent]
+            imports: [common_1.CommonModule],
+            declarations: [dropdown_component_1.DropdownComponent],
+            exports: [common_1.CommonModule, forms_1.ReactiveFormsModule, dropdown_component_1.DropdownComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], SharedModule);
+    return SharedModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.SharedModule = SharedModule;
+//# sourceMappingURL=shared.module.js.map

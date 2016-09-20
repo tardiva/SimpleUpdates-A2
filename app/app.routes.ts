@@ -1,17 +1,32 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginFormComponent } from './imports/login/login.component';
-import { SignupFormComponent } from './imports/login/signup.component'
-import { UpdatesListComponent } from './imports/updates/updates-list.component';
-import { ProjectsListComponent } from './imports/projects/projects-list.component';
+import { LoginFormComponent } from './modules/login/components/login.component';
+import { SignupFormComponent } from './modules/login/components/signup.component';
 
-const APP_ROUTES: Routes = [
+
+/*const APP_ROUTES: Routes = [
 
     { path: '', component: LoginFormComponent },
-    { path: 'signup', component: SignupFormComponent },
-    { path: 'updates', component: UpdatesListComponent},
-    { path: 'projects', component: ProjectsListComponent}
+    { path: 'signup', component: SignupFormComponent }
+];*/
+
+const loginRoutes: Routes = [
+    
+    { path: 'login', component: LoginFormComponent },
+    { path: 'signup', component: SignupFormComponent }
+];
+
+const homeRoutes: Routes = [
+    
+    { path: '', loadChildren: 'app/modules/home/home.module#HomeModule' },
+];
+
+const APP_ROUTES: Routes = [
+  
+    ...loginRoutes,
+    ...homeRoutes
+    
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);
