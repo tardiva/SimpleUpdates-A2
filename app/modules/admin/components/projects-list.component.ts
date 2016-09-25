@@ -19,6 +19,7 @@ export class ProjectsListComponent implements OnInit {
     
     projects: Project[];
     isFormHidden: boolean;
+    usersOptions: any[];
         
 constructor(private projectsDataService: ProjectsDataService, private userService: UserService){
     
