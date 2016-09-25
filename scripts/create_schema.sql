@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `simple_updates`.`users` (
   `tenant_id` INT NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NULL,
+  `is_admin`BOOLEAN NOT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),

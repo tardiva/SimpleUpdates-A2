@@ -22,6 +22,8 @@ var UpdatesListComponent = (function () {
     };
     UpdatesListComponent.prototype.ngOnInit = function () {
         this.getProjectsWithLastUpdate();
+        this.initTest = 'Upd List Init test';
+        console.log(this.initTest);
     };
     UpdatesListComponent = __decorate([
         core_1.Component({

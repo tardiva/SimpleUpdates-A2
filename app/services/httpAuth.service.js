@@ -12,11 +12,9 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var router_1 = require('@angular/router');
 require('rxjs/add/operator/toPromise');
-var auth_service_1 = require('./auth.service');
 var httpAuth = (function () {
-    function httpAuth(http, authService, router) {
+    function httpAuth(http, /*private authService: AuthService, */ router) {
         this.http = http;
-        this.authService = authService;
         this.router = router;
     }
     httpAuth.prototype.handleError = function (error) {
@@ -45,7 +43,7 @@ var httpAuth = (function () {
     };
     httpAuth = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, auth_service_1.AuthService, router_1.Router])
+        __metadata('design:paramtypes', [http_1.Http, router_1.Router])
     ], httpAuth);
     return httpAuth;
 }());

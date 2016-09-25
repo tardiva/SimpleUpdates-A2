@@ -16,9 +16,11 @@ export class UserService {
     }
     
     public getCurrentUser(): Promise<User> {
-              
-       return this.httpAuth.get(this.currentUserUrl)
-                  .then(user => this.user = user)
+       
+       
+          return this.httpAuth.get(this.currentUserUrl)
+              .then(user => this.user = user)
+       
     }
     
     public getUsers(): Promise<User[]> {

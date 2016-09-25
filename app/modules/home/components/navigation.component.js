@@ -18,14 +18,17 @@ var NavigationComponent = (function () {
     }
     NavigationComponent.prototype.getCurrentUser = function () {
         var _this = this;
-        this.userService.getCurrentUser().then(function (user) { _this.currentUserName = user.first_name + " " + user.last_name; console.log(_this.currentUserName); });
+        this.authService.getCurrentUser().then(function (user) {
+            _this.currentUserName = user.first_name + " " + user.last_name;
+            _this.isAdmin = user.is_admin;
+        });
     };
-    NavigationComponent.prototype.logout = function () {
+    NavigationComponent.prototype.logout = function (event) {
+        event.preventDefault();
         this.authService.logout();
     };
     NavigationComponent.prototype.ngOnInit = function () {
         this.getCurrentUser();
-        //this.currentUserName = this.authService.currentUser.first_name + ' ' + this.authService.currentUser.last_name;
     };
     NavigationComponent = __decorate([
         core_1.Component({

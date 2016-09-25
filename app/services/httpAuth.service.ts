@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 export class httpAuth {
     
    
-constructor(private http: Http, private authService: AuthService, private router: Router) {
+constructor(private http: Http, /*private authService: AuthService, */private router: Router) {
          
   }
        

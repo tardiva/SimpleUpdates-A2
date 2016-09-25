@@ -9,21 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var HomeComponent = (function () {
-    function HomeComponent() {
+var router_1 = require('@angular/router');
+var auth_service_1 = require('../services/auth.service');
+var LoggedInGuard = (function () {
+    function LoggedInGuard(authService, router) {
+        this.authService = authService;
+        this.router = router;
     }
-    HomeComponent.prototype.ngOnInit = function () {
-        this.initTest = 'Home Init test';
-        console.log(this.initTest);
+    LoggedInGuard.prototype.canActivate = function () {
+        if (this.authService.isLoggedIn()) {
+            return true;
+        }
+        else {
+            this.authService.logout();
+            //this.router.navigate(['/login']);
+            return false;
+        }
     };
-    HomeComponent = __decorate([
-        core_1.Component({
-            selector: 'home',
-            template: "<navigation></navigation>\n                   <router-outlet></router-outlet>"
-        }), 
-        __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    LoggedInGuard = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
+    ], LoggedInGuard);
+    return LoggedInGuard;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.LoggedInGuard = LoggedInGuard;
+//# sourceMappingURL=logged-in.guard.js.map

@@ -6,4 +6,5 @@ export interface User {
     last_name?: string;
     email?: string;
     password?: any;
+    is_admin?: boolean;
 }

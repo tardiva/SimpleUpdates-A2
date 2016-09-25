@@ -15,24 +15,27 @@ import { User } from '../../../models/user';
 export class NavigationComponent implements OnInit {
   
     currentUserName: string;
+    isAdmin: boolean;
+    initTest: string;
     
     constructor(private authService: AuthService, private userService: UserService) {
                           
     }
     
     getCurrentUser() {
-        
-      this.userService.getCurrentUser().then(user => {this.currentUserName = user.first_name + " " + user.last_name; console.log(this.currentUserName)})
+     
+        this.authService.getCurrentUser().then(user => {this.currentUserName = user.first_name + " " + user.last_name;
+                                                        this.isAdmin = user.is_admin;});
     }
         
-    logout() {
-    
-      this.authService.logout();
+    logout(event) {
+        
+        event.preventDefault();
+        this.authService.logout();
     }
     
     ngOnInit() {
         
         this.getCurrentUser();
-        //this.currentUserName = this.authService.currentUser.first_name + ' ' + this.authService.currentUser.last_name;
     }
 }

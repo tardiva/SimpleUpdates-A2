@@ -11,15 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
+var httpAuth_service_1 = require('./httpAuth.service');
 require('rxjs/add/operator/toPromise');
 var AuthService = (function () {
-    function AuthService(router, http) {
+    function AuthService(router, http, httpAuth) {
+        //this.token = localStorage.getItem('auth_token');
         this.router = router;
         this.http = http;
+        this.httpAuth = httpAuth;
         this.loginUrl = 'http://localhost:8000/api/login';
+        this.currentUserUrl = 'http://localhost:8000/api/current_user';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.token = localStorage.getItem('auth_token');
     }
+    AuthService.prototype.getCurrentUser = function () {
+        var _this = this;
+        if (this.currentUser) {
+            return new Promise(function (resolve, reject) { resolve(_this.currentUser); });
+        }
+        else {
+            return this.httpAuth.get(this.currentUserUrl)
+                .then(function (user) { return _this.currentUser = user; });
+        }
+    };
+    AuthService.prototype.isLoggedIn = function () {
+        if (localStorage.getItem('auth_token')) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     AuthService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
@@ -31,11 +52,12 @@ var AuthService = (function () {
             .post(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            var token = response.json() && response.json().Token;
+            var token = response.json() && response.json().token;
+            var user = response.json() && response.json().data;
             if (token) {
                 _this.token = token;
                 localStorage.setItem('auth_token', token);
-                //this.currentUser = response.json().User;  
+                _this.currentUser = user;
                 _this.router.navigate(['/']);
             }
             else { } //user not found error
@@ -43,14 +65,14 @@ var AuthService = (function () {
             .catch(this.handleError);
     };
     AuthService.prototype.logout = function () {
-        //this.currentUser = null;  
         this.token = null;
         localStorage.removeItem('auth_token');
-        //this.router.navigate(['/login']);
+        this.currentUser = null;
+        this.router.navigate(['/login']);
     };
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router, http_1.Http])
+        __metadata('design:paramtypes', [router_1.Router, http_1.Http, httpAuth_service_1.httpAuth])
     ], AuthService);
     return AuthService;
 }());

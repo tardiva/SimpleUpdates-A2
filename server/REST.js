@@ -11,7 +11,7 @@ function REST_ROUTER(router,connection,md5) {
 REST_ROUTER.prototype.handleRoutes= function(router,connection) {
     
     router.post("/login",function(req,res){
-        var query = "SELECT `id`, `first_name`, `last_name` FROM `users` WHERE `email` = ? AND `password` = ?";
+        var query = "SELECT `id`, `first_name`, `last_name`, `is_admin` FROM `users` WHERE `email` = ? AND `password` = ?";
         var table = [req.body.email, req.body.password];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -30,14 +30,14 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
                          exp: expires
                         }, req.tokenKey);
                         
-                        res.json({"Error" : false, "Success" : true, /*"User": rows[0],*/ "Token": token});};
+                        res.json({"Error" : false, "Success" : true, "data": rows[0], "token": token});};
             }
         });
     });
 
     router.post("/users",function(req,res){
-        var query = "INSERT INTO `users`(`email`,`password`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?)";
-        var table = [req.body.email, md5(req.body.password), req.body.firstName, req.body.lastName, 1];
+        var query = "INSERT INTO `users`(`email`,`password`,`is_admin`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?,?)";
+        var table = [req.body.email, md5(req.body.password), req.body.is_admin, req.body.first_name, req.body.last_name, 1];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -63,7 +63,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
     
     router.get("/current_user", jwtAuth, function(req,res){
                 
-        var query = "SELECT `first_name`, `last_name` FROM `users` WHERE `id` = ?";
+        var query = "SELECT `first_name`, `last_name`, `is_admin` FROM `users` WHERE `id` = ?";
         var table = [req.user_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){

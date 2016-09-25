@@ -20,7 +20,7 @@ import { ProjectsDataService } from '../../services/projects-data.service';
   imports:      [ SharedModule, homeRouting/*, adminModule*/ ],
   declarations: [ HomeComponent, NavigationComponent, UpdatesListComponent, UpdateFormComponent, UpdateComponent ],
   exports:      [ ],    
-  providers:    [ UpdatesDataService, ProjectsDataService]
+  providers:    [ UpdatesDataService, ProjectsDataService ]
   })
 
 export class HomeModule { }

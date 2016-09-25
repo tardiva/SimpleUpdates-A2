@@ -15,14 +15,19 @@
               Project Manager
           </th>
         </tr>
-        <tr *ngFor = "let project of projects">
+        
+        <tr *ngFor = "let project of projects" (click) = "showInput(project)">
+            
             <td>
-                {{project.name}}
+                <span *ngIf = !isEditMode(project)>{{project.name}}</span>
+                <input *ngIf = isEditMode(project) [placeholder] = "project.name" class = "project-name-input">
             </td>
             <td>
-                {{project.first_name}} {{project.last_name}}
+                <span *ngIf = !isEditMode(project)>{{project.first_name}} {{project.last_name}}</span>
+                <dropdown *ngIf = isEditMode(project) [options] = "usersOptions" class = "project-manager-dropdown"></dropdown>
             </td>
         </tr>
+        
     </table>
     </section>
 </div>

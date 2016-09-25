@@ -2,7 +2,7 @@ import { NgModule }            from '@angular/core';
 import { CommonModule }        from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { DropdownComponent }     from './components/dropdown.component'
+import { DropdownComponent }     from './components/dropdown.component';
 
 
 @NgModule({

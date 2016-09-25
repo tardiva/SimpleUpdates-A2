@@ -1,6 +1,8 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { LoggedInGuard } from './guards/logged-in.guard';
+
 import { LoginFormComponent } from './modules/login/components/login.component';
 import { SignupFormComponent } from './modules/login/components/signup.component';
 
@@ -19,7 +21,7 @@ const loginRoutes: Routes = [
 
 const homeRoutes: Routes = [
     
-    { path: '', loadChildren: 'app/modules/home/home.module#HomeModule' },
+    { path: '', loadChildren: 'app/modules/home/home.module#HomeModule', canActivate: [LoggedInGuard] },
 ];
 
 const APP_ROUTES: Routes = [

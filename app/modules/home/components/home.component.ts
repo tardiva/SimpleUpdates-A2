@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
     @Component({
@@ -8,8 +8,16 @@ import { Component } from '@angular/core';
                    <router-outlet></router-outlet>`
         })
 
-export class HomeComponent {
-                
+export class HomeComponent implements OnInit{
+    
+    initTest: string;
+    
     constructor() { }
+    
+    ngOnInit() {
+        
+     this.initTest = 'Home Init test';
+     console.log(this.initTest);
+    }
          
 }
