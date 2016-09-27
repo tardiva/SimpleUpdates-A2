@@ -17,15 +17,17 @@ var IsAdminGuard = (function () {
         this.router = router;
     }
     IsAdminGuard.prototype.canActivate = function () {
-        if (this.authService.currentUser && this.authService.currentUser.is_admin == true) {
+        if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
             return true;
         }
-        else if (this.authService.currentUser && this.authService.currentUser.is_admin == false) {
+        else if (this.authService.isLoggedIn() && !this.authService.isAdmin()) {
             this.authService.logout();
             return false;
         }
         else {
-            return true;
+            this.authService.logout();
+            console.error('current user is not available');
+            return false;
         } //temporary value
     };
     IsAdminGuard = __decorate([

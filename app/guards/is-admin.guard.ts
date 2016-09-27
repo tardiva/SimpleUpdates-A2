@@ -9,16 +9,16 @@ export class IsAdminGuard implements CanActivate {
 
   canActivate() {
     
-      if ( this.authService.currentUser && this.authService.currentUser.is_admin == true) {return true;}
+      if ( this.authService.isLoggedIn() && this.authService.isAdmin()) { 
+          return true; }
       
-          else if (this.authService.currentUser && this.authService.currentUser.is_admin == false) {
+          else if ( this.authService.isLoggedIn() && !this.authService.isAdmin()) {
                this.authService.logout();
                return false;
-      }
+          }
       
-      else { return true } //temporary value
-         
-      
-      
+          else { 
+              this.authService.logout(); console.error('current user is not available'); return false; 
+          } //temporary value
   }
 }

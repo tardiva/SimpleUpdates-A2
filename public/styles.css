@@ -278,6 +278,27 @@ text-decoration: none
 }
 
 /*-------PROJECTS LIST--------*/
+
+.table-header {
+    font-weight: bold;
+}
+
+.table-header, .project-item {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #eceeef;
+}
+
+.project-item {
+    padding-left: 15px;
+}
+
+div.project-item:hover , .selected {
+    background-color: #eceeef;
+}
+
+/*-------NEW PROJECT FORM-------*/
+
 #new-project{
     height: 34px;
     line-height: 34px;
@@ -321,9 +342,7 @@ text-decoration: none
     color: #fff;
 }
 
-#new-project-form {
-    
-}
+/*-------COMMON-------*/
 
 .hidden {
     display: none;

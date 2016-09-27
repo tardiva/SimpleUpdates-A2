@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var shared_module_1 = require('../shared/shared.module');
 var admin_routes_1 = require('./admin.routes');
 var projects_list_component_1 = require('./components/projects-list.component');
+var project_component_1 = require('./components/project.component');
 var project_form_component_1 = require('./components/project-form.component');
 var AdminModule = (function () {
     function AdminModule() {
@@ -19,7 +20,7 @@ var AdminModule = (function () {
     AdminModule = __decorate([
         core_1.NgModule({
             imports: [shared_module_1.SharedModule, admin_routes_1.adminRouting],
-            declarations: [projects_list_component_1.ProjectsListComponent, project_form_component_1.ProjectFormComponent],
+            declarations: [projects_list_component_1.ProjectsListComponent, project_component_1.ProjectComponent, project_form_component_1.ProjectFormComponent],
             exports: [],
             providers: []
         }), 

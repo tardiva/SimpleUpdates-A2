@@ -9,12 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
 var auth_service_1 = require('../services/auth.service');
 var LoggedInGuard = (function () {
-    function LoggedInGuard(authService, router) {
+    function LoggedInGuard(authService) {
         this.authService = authService;
-        this.router = router;
     }
     LoggedInGuard.prototype.canActivate = function () {
         if (this.authService.isLoggedIn()) {
@@ -22,13 +20,12 @@ var LoggedInGuard = (function () {
         }
         else {
             this.authService.logout();
-            //this.router.navigate(['/login']);
             return false;
         }
     };
     LoggedInGuard = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], LoggedInGuard);
     return LoggedInGuard;
 }());

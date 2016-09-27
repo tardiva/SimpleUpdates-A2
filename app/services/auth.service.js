@@ -11,17 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
-var httpAuth_service_1 = require('./httpAuth.service');
 require('rxjs/add/operator/toPromise');
+var httpAuth_service_1 = require('./httpAuth.service');
 var AuthService = (function () {
     function AuthService(router, http, httpAuth) {
-        //this.token = localStorage.getItem('auth_token');
         this.router = router;
         this.http = http;
         this.httpAuth = httpAuth;
         this.loginUrl = 'http://localhost:8000/api/login';
         this.currentUserUrl = 'http://localhost:8000/api/current_user';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.token = localStorage.getItem('auth_token');
+        this.currentUser = JSON.parse(localStorage.getItem('user'));
     }
     AuthService.prototype.getCurrentUser = function () {
         var _this = this;
@@ -33,6 +34,10 @@ var AuthService = (function () {
                 .then(function (user) { return _this.currentUser = user; });
         }
     };
+    AuthService.prototype.handleError = function (error) {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    };
     AuthService.prototype.isLoggedIn = function () {
         if (localStorage.getItem('auth_token')) {
             return true;
@@ -41,9 +46,8 @@ var AuthService = (function () {
             return false;
         }
     };
-    AuthService.prototype.handleError = function (error) {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
+    AuthService.prototype.isAdmin = function () {
+        return this.currentUser.is_admin;
     };
     AuthService.prototype.login = function (user) {
         var _this = this;
@@ -54,13 +58,14 @@ var AuthService = (function () {
             .then(function (response) {
             var token = response.json() && response.json().token;
             var user = response.json() && response.json().data;
-            if (token) {
+            if (token && user) {
                 _this.token = token;
                 localStorage.setItem('auth_token', token);
                 _this.currentUser = user;
+                localStorage.setItem('user', JSON.stringify(user));
                 _this.router.navigate(['/']);
             }
-            else { } //user not found error
+            else { } //add 'user not found' error handling
         })
             .catch(this.handleError);
     };
@@ -68,6 +73,7 @@ var AuthService = (function () {
         this.token = null;
         localStorage.removeItem('auth_token');
         this.currentUser = null;
+        localStorage.removeItem('user');
         this.router.navigate(['/login']);
     };
     AuthService = __decorate([

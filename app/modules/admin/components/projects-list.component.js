@@ -32,17 +32,16 @@ var ProjectsListComponent = (function () {
             this.isFormHidden = true;
         }
     };
-    ProjectsListComponent.prototype.showInput = function (project) {
+    /*private showInput(project) {
+        
         project.editMode = true;
-    };
-    ProjectsListComponent.prototype.isEditMode = function (project) {
-        if (project.editMode && project.editMode == true) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
+    }
+        
+    private isEditMode(project) {
+        
+        if (project.editMode && project.editMode == true) {return true}
+          else {return false}
+    } */
     ProjectsListComponent.prototype.ngOnInit = function () {
         this.getProjects();
         this.getManagersList();

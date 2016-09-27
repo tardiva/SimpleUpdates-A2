@@ -18,8 +18,6 @@ const HOME_ROUTES: Routes = [
         ]
     }
     
-    /*{ path: '', component: UpdatesListComponent },
-    { path: 'projects', loadChildren: 'app/modules/admin/admin.module#AdminModule' }*/
 ]
 
 export const homeRouting: ModuleWithProviders = RouterModule.forChild(HOME_ROUTES);

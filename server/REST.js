@@ -2,6 +2,7 @@ var mysql = require("mysql");
 var md5 = require('MD5');
 var jwt = require('jwt-simple');
 var jwtAuth = require("./jwtauth.js");
+var isAdmin = require("./is_admin.js");
 
 function REST_ROUTER(router,connection,md5) {
     var self = this;
@@ -75,7 +76,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
         });
     });
 
-    router.post("/projects", jwtAuth, function(req,res){
+    router.post("/projects", jwtAuth, isAdmin, function(req,res){
         var query = "INSERT INTO `projects`(`name`,`manager`) VALUES (?,?)";
         var table = [req.body.name,req.body.manager];
         query = mysql.format(query,table);
