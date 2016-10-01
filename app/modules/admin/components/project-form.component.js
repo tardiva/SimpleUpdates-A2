@@ -25,7 +25,6 @@ var ProjectFormComponent = (function () {
             name: ['', forms_1.Validators.required],
             manager: ['', forms_1.Validators.required]
         });
-        this.getManagersList();
     };
     ProjectFormComponent.prototype.addProject = function () {
         var _this = this;
@@ -35,15 +34,15 @@ var ProjectFormComponent = (function () {
             this.resetForm();
         }
     };
-    ProjectFormComponent.prototype.getManagersList = function () {
-        var _this = this;
-        this.userService.getUsers().then(function (users) { return _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; }); });
-    };
     ProjectFormComponent.prototype.resetForm = function () {
         /*this.newProjectForm.controls['name']['updateValue']('');*/
         this.newProjectForm.reset();
         this.closeForm.emit();
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Array)
+    ], ProjectFormComponent.prototype, "usersOptions", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)

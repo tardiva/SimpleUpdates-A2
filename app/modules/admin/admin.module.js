@@ -14,13 +14,16 @@ var admin_routes_1 = require('./admin.routes');
 var projects_list_component_1 = require('./components/projects-list.component');
 var project_component_1 = require('./components/project.component');
 var project_form_component_1 = require('./components/project-form.component');
+var users_list_component_1 = require('./components/users-list.component');
+var user_component_1 = require('./components/user.component');
+var user_form_component_1 = require('./components/user-form.component');
 var AdminModule = (function () {
     function AdminModule() {
     }
     AdminModule = __decorate([
         core_1.NgModule({
             imports: [shared_module_1.SharedModule, admin_routes_1.adminRouting],
-            declarations: [projects_list_component_1.ProjectsListComponent, project_component_1.ProjectComponent, project_form_component_1.ProjectFormComponent],
+            declarations: [projects_list_component_1.ProjectsListComponent, project_component_1.ProjectComponent, project_form_component_1.ProjectFormComponent, users_list_component_1.UsersListComponent, user_component_1.UserComponent, user_form_component_1.UserFormComponent],
             exports: [],
             providers: []
         }), 

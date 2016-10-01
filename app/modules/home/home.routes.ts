@@ -14,7 +14,7 @@ const HOME_ROUTES: Routes = [
         
         children: [
             { path: '', component: UpdatesListComponent },
-            { path: 'projects', loadChildren: 'app/modules/admin/admin.module#AdminModule', canActivate: [IsAdminGuard] }
+            { path: 'admin', loadChildren: 'app/modules/admin/admin.module#AdminModule', canActivate: [IsAdminGuard] }
         ]
     }
     

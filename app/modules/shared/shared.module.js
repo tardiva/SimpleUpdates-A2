@@ -12,14 +12,15 @@ var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
 var dropdown_component_1 = require('./components/dropdown.component');
+var click_outside_directive_1 = require('./directives/click-outside.directive');
 var SharedModule = (function () {
     function SharedModule() {
     }
     SharedModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule],
-            declarations: [dropdown_component_1.DropdownComponent],
-            exports: [common_1.CommonModule, forms_1.ReactiveFormsModule, dropdown_component_1.DropdownComponent]
+            declarations: [dropdown_component_1.DropdownComponent, click_outside_directive_1.ClickOutsideDirective],
+            exports: [common_1.CommonModule, forms_1.ReactiveFormsModule, dropdown_component_1.DropdownComponent, click_outside_directive_1.ClickOutsideDirective]
         }), 
         __metadata('design:paramtypes', [])
     ], SharedModule);

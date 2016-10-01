@@ -14,10 +14,6 @@ export class HomeComponent implements OnInit{
     
     constructor() { }
     
-    ngOnInit() {
-        
-     this.initTest = 'Home Init test';
-     console.log(this.initTest);
-    }
+    ngOnInit() { }
          
 }

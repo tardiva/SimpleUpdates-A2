@@ -35,6 +35,11 @@ private getManagersList() {
       
      this.userService.getUsers().then(users => this.usersOptions = users.map((item) => {return {key: item.id, label: item.first_name + ' ' + item.last_name}})) 
   }
+
+private closeForm() {
+    
+   /* this.isFormHidden = true;*/
+}
     
 private showNewForm(): void {
     if (this.isFormHidden == true)
@@ -42,21 +47,11 @@ private showNewForm(): void {
     else {this.isFormHidden = true;}
   } 
     
-/*private showInput(project) {
-    
-    project.editMode = true;
-}
-    
-private isEditMode(project) {
-    
-    if (project.editMode && project.editMode == true) {return true}
-      else {return false}
-} */  
-    
 ngOnInit(): void {
     this.getProjects();
     this.getManagersList();
     this.isFormHidden = true;
-}    
+}
+    
    
 }

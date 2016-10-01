@@ -17,7 +17,8 @@ section.new-update {
     /*padding-bottom: 4px;*/
 } 
 
-.card select, .card button, .card textarea {
+.card select, .card button, .card textarea,
+.project-item input, .project-item button {
      height: 33px;
 }
 
@@ -49,17 +50,9 @@ section.new-update {
     vertical-align: middle;
 }
 
-/*.status {
-    width: 15%;
-}*/
-
 .status .main-dd-btn {
     width: 110px;
 }
-
-/*.project {
-    width: 20%;
-}*/
 
 .project .main-dd-btn{
     width: 150px;
@@ -86,14 +79,6 @@ section.new-update {
 
 @media (max-width: 1200px) {
     
-    /*.status {
-    width: 25%;
-}
-
-   .project {
-    width: 30%;
-}*/
-
     .text {
     width: 50%;
 }
@@ -297,19 +282,29 @@ div.project-item:hover , .selected {
     background-color: #eceeef;
 }
 
+.project-item input {
+    
+    padding-left: 8px;
+}
+
+.project-item .main-dd-btn {
+    width: 154px;
+    text-align: left;
+}
+
 /*-------NEW PROJECT FORM-------*/
 
-#new-project{
+.page-header{
     height: 34px;
     line-height: 34px;
     margin-bottom: 30px;
 }
 
-#new-project h3 {
+.page-header h3 {
     margin: 0;
 }
 
-#new-project h3, #new-project .btn {
+.page-header h3, .page-header .btn {
     display: inline-block;
     vertical-align: middle;
 }

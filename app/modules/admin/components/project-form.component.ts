@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ProjectsDataService } from '../../../services/projects-data.service';
@@ -10,17 +10,12 @@ import { User } from '../../../models/user';
 
   selector: 'project-form',
   templateUrl: 'app/modules/admin/components/project-form.component.html',
-  //directives: [DropdownComponent] 
-    
-  
 })
 
 export class ProjectFormComponent implements OnInit {
   
   private newProjectForm: FormGroup;
-  usersOptions: any[];
-    
-
+  
   constructor(private formBuilder: FormBuilder,
               private projectsDataService: ProjectsDataService,
               private userService: UserService) {
@@ -32,7 +27,6 @@ export class ProjectFormComponent implements OnInit {
         name: ['', Validators.required],
         manager: ['', Validators.required]  
      });
-     this.getManagersList();
   }
     
   private addProject(): void {
@@ -43,19 +37,15 @@ export class ProjectFormComponent implements OnInit {
         this.resetForm();    
       }
   }
-    
-  private getManagersList() {
-      
-     this.userService.getUsers().then(users => this.usersOptions = users.map((item) => {return {key: item.id, label: item.first_name + ' ' + item.last_name}})) 
-  }    
-    
+        
   private resetForm(): void {
 
    /*this.newProjectForm.controls['name']['updateValue']('');*/
      this.newProjectForm.reset();
      this.closeForm.emit();
   }    
-    
+  
+  @Input() usersOptions: any[];
   @Output() closeForm: EventEmitter<any> = new EventEmitter();
   @Output() newProject: EventEmitter<any> = new EventEmitter();    
   

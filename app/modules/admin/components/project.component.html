@@ -1,24 +1,25 @@
-<div (click) = "showInput(project, $event)" class = "project-item row">
+<div [id] = "project.name" (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()" class = "project-item row" [class.selected] = "editMode">
     
-  <div *ngIf = !isEditMode(project) class = "row">
-    <div class = "col-md-6 cell">
+  <div class = "row" [class.hidden] = "editMode">
+    <div class = "col-md-6">
       {{project.name}}
     </div>
-    <div class = "col-md-6 cell">
+    <div class = "col-md-6">
       {{project.first_name}} {{project.last_name}}
     </div>
   </div>
 
-  <form *ngIf = isEditMode(project) [formGroup]= "editProjectForm" class = "row edit-mode">
-    <div class = "col-md-6 cell">
-        <input *ngIf = isEditMode(project) [placeholder] = "project.name" class = "project-name-input" formControlName = "name">
+  <form [formGroup]= "editProjectForm" (ngSubmit) = "editProject()" class = "row edit-mode" [class.hidden] = "!editMode">
+    <div class = "col-md-6">
+        <input formControlName = "name">
     </div>
-    <div class = "col-md-6 cell">
-        <dropdown [options] = "usersOptions" class = "project-manager-dropdown" formControlName = "manager"></dropdown>
+    <div class = "col-md-6">
+        <dropdown [options] = "usersOptions" formControlName = "manager"></dropdown>
     </div>
   </form>
     
 </div>
+
 
            
                     

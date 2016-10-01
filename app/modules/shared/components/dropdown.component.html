@@ -6,7 +6,7 @@
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <div class="dropdown-menu">
-      <button *ngFor = "let option of options" class="dropdown-item" [value] = "option.key" (click)="onSelect(option)"><div *ngIf = "option.icon" [class] = "option.icon"></div><span>{{option.label}}</span></button>
+      <button *ngFor = "let option of options" class="dropdown-item" type = "button" [value] = "option.key" (click)="onSelect(option)"><div *ngIf = "option.icon" [class] = "option.icon"></div><span>{{option.label}}</span></button>
   </div>
 </div>
 

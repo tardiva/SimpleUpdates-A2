@@ -48,9 +48,22 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
             }
         });
     });
+    
+    router.put("/users", jwtAuth, isAdmin, function(req,res){
+        var query = "UPDATE `users`SET `first_name` = ?, `last_name` = ? WHERE `id` = ?";
+        var table = [req.body.firstName, req.body.lastName, req.body.id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query" + err});
+            } else {
+                res.json({"Error" : false, "Message" : "User Updated !"});
+            }
+        });
+    });
 
-    router.get("/users", jwtAuth, function(req,res){
-        var query = "SELECT `id`, `first_name`, `last_name` FROM `users` WHERE tenant_id = ?";
+    router.get("/users", jwtAuth, isAdmin, function(req,res){
+        var query = "SELECT `id`, `first_name`, `last_name`, `email`, `is_admin` FROM `users` WHERE tenant_id = ?";
         var table = [req.tenant_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
@@ -88,9 +101,22 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
             }
         });
     });
+    
+    router.put("/projects", jwtAuth, isAdmin, function(req,res){
+        var query = "UPDATE `projects` SET `name` = ?, `manager` = ? WHERE `id` = ?";
+        var table = [req.body.name,req.body.manager,req.body.id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query" + err});
+            } else {
+                res.json({"Error" : false, "Message" : "Project Updated !"});
+            }
+        });
+    });
 
     router.get("/projects", jwtAuth, function(req,res){
-        var query = "SELECT `p`.`id`, `p`.`name`, `u`.`first_name`, `u`.`last_name` FROM `projects` AS `p` LEFT JOIN `users` AS `u` ON `p`.`manager` = `u`.`id` WHERE u.id IN (SELECT `id` FROM `users` WHERE tenant_id = ?) ORDER BY `p`.`name`";
+        var query = "SELECT `p`.`id`, `p`.`name`, `p`.`manager`, `u`.`first_name`, `u`.`last_name` FROM `projects` AS `p` LEFT JOIN `users` AS `u` ON `p`.`manager` = `u`.`id` WHERE u.id IN (SELECT `id` FROM `users` WHERE tenant_id = ?) ORDER BY `p`.`name`";
         var table = [req.tenant_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){

@@ -39,16 +39,20 @@ REST.prototype.configureExpress = function(connection) {
     app.use(bodyParser.json());
            
     var router = express.Router();
-
+    
+    app.use('/admin/node_modules', express.static('node_modules'));
     app.use('/node_modules', express.static('node_modules'));
+    app.use('/admin/app', express.static('app'));
     app.use('/app', express.static('app'));
+    app.use('/admin', express.static('public'));
     app.use('/', express.static('public'));
-        
+    
     app.use('/api', function(req,res,next){req.tokenKey = app.get('jwtTokenSecret'); req.connection = connection; next();}, router);
     
     var rest_router = new rest(router,connection);
     
-    app.use(['/login', '/updates', '/projects', '/signup', '/home'], function (req, res) {res.sendFile("index.html", { root: './public' });});
+    app.use(['/login', '/updates', '/signup', '/home'], function (req, res) {res.sendFile("index.html", { root: './public' });});
+    app.use(['/admin/projects', '/admin/users'], function (req, res) {res.sendFile("index.html", { root: './public' });});
 
     self.startServer();
 }

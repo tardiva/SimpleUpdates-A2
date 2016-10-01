@@ -21,6 +21,12 @@ var ProjectsDataService = (function () {
             .post(url, project)
             .then(function () { return null; });
     };
+    ProjectsDataService.prototype.editProject = function (project) {
+        var url = this.projectsUrl;
+        return this.httpAuth
+            .put(url, project)
+            .then(function () { return null; });
+    };
     ProjectsDataService.prototype.getProjects = function () {
         var _this = this;
         return this.httpAuth.get(this.projectsUrl)

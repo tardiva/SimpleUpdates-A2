@@ -1,0 +1,35 @@
+<div (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()" class = "project-item row" [class.selected] = "editMode">
+    
+  <div class = "row" [class.hidden] = "editMode">
+    <div class = "col-md-3">
+      {{user.first_name}}
+    </div>
+    <div class = "col-md-3">
+      {{user.last_name}}
+    </div>
+    <div class = "col-md-3">
+      {{user.email}}
+    </div>
+    <div class = "col-md-3">
+        <span *ngIf = "user.is_admin">Yes</span>
+    </div>
+      
+  </div>
+
+  <form [formGroup]= "editUserForm" (ngSubmit) = "editUser()" class = "row edit-mode" [class.hidden] = "!editMode">
+    <div class = "col-md-3">
+        <input formControlName = "firstName" (keypress) = "submit($event)">
+    </div>
+    <div class = "col-md-3">
+        <input formControlName = "lastName" (keypress) = "submit($event)">
+    </div>
+    <div class = "col-md-3">
+        <input formControlName = "email" disabled>
+    </div>
+    <div class = "col-md-3">
+        <input type="checkbox" formControlName = "isAdmin">
+    </div>
+  </form>
+    
+</div>
+

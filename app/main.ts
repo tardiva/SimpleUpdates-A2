@@ -17,22 +17,29 @@ var http = injector.get(Http);
 
 var currentUserUrl = 'http://localhost:8000/api/current_user';
 
-if (localStorage.getItem('auth_token')) {
+if (localStorage.getItem('auth_token')) { //if there is auth token in local storage user info should be fetched before bootstrapping the app
     
-  if (localStorage.getItem('user')) {localStorage.removeItem('user');
+  if (localStorage.getItem('user')) {localStorage.removeItem('user'); 
   }
+    
   http.get(currentUserUrl, {headers: {'x-access-token': localStorage.getItem('auth_token')}})
     .toPromise()
     .then((response) => {
-          let user = response.json().data;
-          //window.currentUser = user;
-          localStorage.setItem('user', JSON.stringify(user));
-          platformBrowserDynamic().bootstrapModule(AppModule);
-          });
+      
+              let user = response.json().data;
+              localStorage.setItem('user', JSON.stringify(user));
+              platformBrowserDynamic().bootstrapModule(AppModule); 
+          })
+    .catch(error => {
+             
+             if (error.status == 401) {
+             localStorage.removeItem('auth_token');
+             platformBrowserDynamic().bootstrapModule(AppModule);} 
+             else (console.log(error))})
 }
 
-    else { platformBrowserDynamic().bootstrapModule(AppModule); }
+else { platformBrowserDynamic().bootstrapModule(AppModule); } 
 
-// the use case when auth token exists but expired (invalid) - how to handle?
+
 
 

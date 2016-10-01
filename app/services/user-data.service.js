@@ -26,6 +26,12 @@ var UserService = (function () {
         return this.httpAuth.get(this.usersUrl)
             .then(function (users) { return _this.users = users; });
     };
+    UserService.prototype.editUser = function (user) {
+        var url = this.usersUrl;
+        return this.httpAuth
+            .put(url, user)
+            .then(function () { return null; });
+    };
     UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [httpAuth_service_1.httpAuth])

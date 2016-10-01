@@ -14,13 +14,40 @@ var DropdownComponent = (function () {
     function DropdownComponent() {
         this.propagateChange = function (_) { };
     }
-    DropdownComponent.prototype.ngOnInit = function () {
-    };
+    /*writeValue(value: any) {
+       if (value !== undefined) {
+           /*if (value == 0 || value == '') {*/
+    //this.selectedValue = value;
+    // this.selectedLabel = this.placeholder;
+    //  this.selectedIcon = '';
+    //}
+    /* else {
+         let options = this.options;
+         for (let option of options)
+             {if (option.key == value) {
+                 this.selectedValue = option.key;
+                 this.selectedLabel = option.label;
+                 this.selectedIcon = option.icon;
+             }}
+             }*/
+    // }
+    // }
     DropdownComponent.prototype.writeValue = function (value) {
-        if (value !== undefined) {
+        if (value !== undefined && this.placeholder) {
             this.selectedValue = value;
             this.selectedLabel = this.placeholder;
             this.selectedIcon = '';
+        }
+        else {
+            var options = this.options;
+            for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
+                var option = options_1[_i];
+                if (option.key == value) {
+                    this.selectedValue = value;
+                    this.selectedLabel = option.label;
+                    this.selectedIcon = option.icon;
+                }
+            }
         }
     };
     DropdownComponent.prototype.registerOnChange = function (fn) {

@@ -21,15 +21,6 @@ var httpAuth = (function () {
         console.error('An error occurred', error.status);
         //return Promise.reject(error.message || error);
     };
-    httpAuth.prototype.post = function (url, data) {
-        var authToken = localStorage.getItem('auth_token');
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'x-access-token': authToken });
-        return this.http
-            .post(url, JSON.stringify(data), { headers: headers })
-            .toPromise()
-            .then(function () { return null; })
-            .catch(this.handleError);
-    };
     httpAuth.prototype.get = function (url) {
         var _this = this;
         var authToken = localStorage.getItem('auth_token');
@@ -40,6 +31,24 @@ var httpAuth = (function () {
             .catch(function (error) { _this.handleError(error); if (error.status == 401) {
             _this.router.navigate(['/login']);
         } ; });
+    };
+    httpAuth.prototype.post = function (url, data) {
+        var authToken = localStorage.getItem('auth_token');
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'x-access-token': authToken });
+        return this.http
+            .post(url, JSON.stringify(data), { headers: headers })
+            .toPromise()
+            .then(function () { return null; })
+            .catch(this.handleError);
+    };
+    httpAuth.prototype.put = function (url, data) {
+        var authToken = localStorage.getItem('auth_token');
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'x-access-token': authToken });
+        return this.http
+            .put(url, JSON.stringify(data), { headers: headers })
+            .toPromise()
+            .then(function () { return null; })
+            .catch(this.handleError);
     };
     httpAuth = __decorate([
         core_1.Injectable(), 

@@ -1,6 +1,6 @@
 
 <div class="container">
-    <section id = "new-project" class = "col-md-10">
+    <section class = "page-header col-md-10">
          <h3>Projects</h3>
          <input class = "btn btn-primary pull-lg-right" type="submit" value = "Add Project" (click) = "showNewForm()">
     </section>
@@ -13,13 +13,15 @@
             </div>
             
             <div class = "table-body">
-               <project *ngFor = "let project of projects" [project] = "project"></project>
+               <project *ngFor = "let project of projects" [project] = "project" (projectUpdated) = "getProjects()"></project>
             </div>   
         
     </section>
  </div>
 
-<project-form (newProject)="getProjects()" (closeForm) = "showNewForm()" [class.hidden] = "isFormHidden"></project-form>
+<project-form (newProject)="getProjects()" (closeForm) = "showNewForm()" [usersOptions] = "usersOptions" [class.hidden] = "isFormHidden"></project-form>
+
+
 
 
 

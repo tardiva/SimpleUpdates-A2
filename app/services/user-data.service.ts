@@ -18,7 +18,7 @@ export class UserService {
     public getCurrentUser(): Promise<User> {
        
        
-          return this.httpAuth.get(this.currentUserUrl)
+        return this.httpAuth.get(this.currentUserUrl)
               .then(user => this.user = user)
        
     }
@@ -28,6 +28,15 @@ export class UserService {
        return this.httpAuth.get(this.usersUrl)
                   .then(users => this.users = users)
     }
+    
+    public editUser(user: User): Promise<void> {
+        
+        const url = this.usersUrl;
+                
+        return this.httpAuth
+               .put(url, user)
+               .then(()=> null)
+  }
 }
 
 

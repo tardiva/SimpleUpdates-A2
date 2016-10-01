@@ -17,36 +17,41 @@ var ProjectComponent = (function () {
         this.formBuilder = formBuilder;
         this.projectsDataService = projectsDataService;
         this.userService = userService;
-        this.closeForm = new core_1.EventEmitter();
-        this.newProject = new core_1.EventEmitter();
+        this.projectUpdated = new core_1.EventEmitter();
     }
     ProjectComponent.prototype.ngOnInit = function () {
         this.editProjectForm = this.formBuilder.group({
             name: ['', forms_1.Validators.required],
             manager: ['', forms_1.Validators.required]
         });
-        this.getManagersList();
+        this.editMode = false;
+        this.usersOptions = [];
     };
     ProjectComponent.prototype.getManagersList = function () {
         var _this = this;
         this.userService.getUsers().then(function (users) { return _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; }); });
     };
-    ProjectComponent.prototype.selectRow = function (event) {
-        var row = event.target.closest(".project-item");
-        console.log(row);
-        row.classList.toggle("selected");
-    };
-    ProjectComponent.prototype.showInput = function (project, event) {
-        this.selectRow(event);
-        project.editMode = true;
-    };
-    ProjectComponent.prototype.isEditMode = function (project) {
-        if (project.editMode && project.editMode == true) {
-            return true;
+    ProjectComponent.prototype.showRowEditor = function () {
+        var _this = this;
+        if (!this.editMode) {
+            this.editMode = true;
+            this.userService.getUsers().then(function (users) {
+                _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; });
+                _this.editProjectForm.setValue({ name: _this.project.name, manager: _this.project.manager });
+                console.log(_this.editProjectForm.value);
+            });
         }
-        else {
-            return false;
+    };
+    ProjectComponent.prototype.hideRowEditor = function () {
+        if (this.editMode == true) {
+            this.editMode = false;
         }
+    };
+    ProjectComponent.prototype.editProject = function () {
+        var _this = this;
+        var project = this.editProjectForm.value;
+        project.id = this.project.id;
+        this.projectsDataService.editProject(project).then(function () { return _this.projectUpdated.emit(); });
     };
     __decorate([
         core_1.Input(), 
@@ -55,11 +60,7 @@ var ProjectComponent = (function () {
     __decorate([
         core_1.Output(), 
         __metadata('design:type', core_1.EventEmitter)
-    ], ProjectComponent.prototype, "closeForm", void 0);
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', core_1.EventEmitter)
-    ], ProjectComponent.prototype, "newProject", void 0);
+    ], ProjectComponent.prototype, "projectUpdated", void 0);
     ProjectComponent = __decorate([
         core_1.Component({
             selector: 'project',

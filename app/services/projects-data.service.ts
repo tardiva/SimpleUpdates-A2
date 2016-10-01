@@ -21,6 +21,15 @@ export class ProjectsDataService {
                .post(url, project)
                .then(()=> null)
   }
+  
+  public editProject(project: Project): Promise<void> {
+        
+    const url = this.projectsUrl;
+                
+    return this.httpAuth
+               .put(url, project)
+               .then(()=> null)
+  }
     
   public getProjects(): Promise<Project[]> {
               

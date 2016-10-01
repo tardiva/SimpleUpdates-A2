@@ -9,7 +9,7 @@ var HOME_ROUTES = [
         component: home_component_1.HomeComponent,
         children: [
             { path: '', component: updates_list_component_1.UpdatesListComponent },
-            { path: 'projects', loadChildren: 'app/modules/admin/admin.module#AdminModule', canActivate: [is_admin_guard_1.IsAdminGuard] }
+            { path: 'admin', loadChildren: 'app/modules/admin/admin.module#AdminModule', canActivate: [is_admin_guard_1.IsAdminGuard] }
         ]
     }
 ];

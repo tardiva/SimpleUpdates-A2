@@ -17,7 +17,6 @@ import { UpdatesDataService } from '../../../services/updates-data.service';
 export class UpdatesListComponent implements OnInit{
                 
 projects: Project[];
-initTest: string;
     
 constructor(private projectsDataService: ProjectsDataService, private updatesDataService: UpdatesDataService){
     
@@ -29,9 +28,8 @@ getProjectsWithLastUpdate(): void {
 }
     
 ngOnInit(): void {
+    
     this.getProjectsWithLastUpdate();
-    this.initTest = 'Upd List Init test';
-    console.log(this.initTest);
 }    
    
     

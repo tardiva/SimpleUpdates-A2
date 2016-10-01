@@ -24,6 +24,9 @@ var ProjectsListComponent = (function () {
         var _this = this;
         this.userService.getUsers().then(function (users) { return _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; }); });
     };
+    ProjectsListComponent.prototype.closeForm = function () {
+        /* this.isFormHidden = true;*/
+    };
     ProjectsListComponent.prototype.showNewForm = function () {
         if (this.isFormHidden == true) {
             this.isFormHidden = false;
@@ -32,16 +35,6 @@ var ProjectsListComponent = (function () {
             this.isFormHidden = true;
         }
     };
-    /*private showInput(project) {
-        
-        project.editMode = true;
-    }
-        
-    private isEditMode(project) {
-        
-        if (project.editMode && project.editMode == true) {return true}
-          else {return false}
-    } */
     ProjectsListComponent.prototype.ngOnInit = function () {
         this.getProjects();
         this.getManagersList();

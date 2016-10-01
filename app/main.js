@@ -19,13 +19,19 @@ if (localStorage.getItem('auth_token')) {
         .toPromise()
         .then(function (response) {
         var user = response.json().data;
-        //window.currentUser = user;
         localStorage.setItem('user', JSON.stringify(user));
         platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+    })
+        .catch(function (error) {
+        if (error.status == 401) {
+            localStorage.removeItem('auth_token');
+            platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+        }
+        else
+            (console.log(error));
     });
 }
 else {
     platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 }
-// the use case when auth token exists but expired (invalid) - how to handle?
 //# sourceMappingURL=main.js.map

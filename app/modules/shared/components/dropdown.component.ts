@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef} from '@angular/core';
+import { Component, Input, forwardRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -14,26 +14,52 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   
 })
 
-export class DropdownComponent implements ControlValueAccessor, OnInit {
+export class DropdownComponent implements ControlValueAccessor {
     
     private selectedLabel: string;
     private selectedIcon: string;
     
     constructor() {}
-    
-    ngOnInit() {
-               
-    }
-        
-    writeValue(value: any) {
+       
+    /*writeValue(value: any) {
        if (value !== undefined) {
-        this.selectedValue = value;
-        this.selectedLabel = this.placeholder;
-        this.selectedIcon = '';   
-       }
-        
+           /*if (value == 0 || value == '') {*/
+        //this.selectedValue = value;
+       // this.selectedLabel = this.placeholder;
+      //  this.selectedIcon = '';
+        //}
+          /* else {
+               let options = this.options;
+               for (let option of options)
+                   {if (option.key == value) {
+                       this.selectedValue = option.key;
+                       this.selectedLabel = option.label;
+                       this.selectedIcon = option.icon;
+                   }}
+                   }*/
+      // }
+               
+   // }
+    
+    writeValue(value: any) {
+       
+        if (value !== undefined && this.placeholder) {
+            this.selectedValue = value;
+            this.selectedLabel = this.placeholder;
+            this.selectedIcon = '';
+        }
+        else {
+               let options = this.options;
+               for (let option of options)
+                   {if (option.key == value) {
+                       this.selectedValue = value;
+                       this.selectedLabel = option.label;
+                       this.selectedIcon = option.icon;
+                   }}
+             }
     }
     
+        
     propagateChange = (_: any) => {};
     
     registerOnChange(fn) {
