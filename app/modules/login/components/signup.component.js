@@ -10,37 +10,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var auth_service_1 = require('../../../services/auth.service');
+var md5_1 = require('ts-md5/dist/md5');
 var SignupFormComponent = (function () {
-    function SignupFormComponent(formBuilder) {
+    function SignupFormComponent(formBuilder, authService) {
         this.formBuilder = formBuilder;
+        this.authService = authService;
     }
     SignupFormComponent.prototype.ngOnInit = function () {
         this.signupForm = this.formBuilder.group({
-            teamName: [''],
-            email: [''],
-            password: ['']
+            teamName: ['', forms_1.Validators.required],
+            email: ['', forms_1.Validators.required],
+            password: ['', forms_1.Validators.required]
         });
     };
     SignupFormComponent.prototype.signup = function () {
-        /*const controls = this.signupForm.controls;
- 
-        Accounts.createUser({
-          email: controls.email.value,
-          password: controls.password.value,
-          /*profile: {
-                    firstName: controls.firstName.value,
-                    lastName: controls.lastName.value
-         },
-         isAdmin: controls.isAdmin.value,
-         tenantId: tenantId
-        });*/
+        if (this.signupForm.valid) {
+            var user = { tenantName: this.signupForm.value.teamName,
+                email: this.signupForm.value.email,
+                password: md5_1.Md5.hashStr(this.signupForm.value.password) };
+            this.authService.signUp(user)
+                .then(function () { return null; });
+        }
     };
     SignupFormComponent = __decorate([
         core_1.Component({
             selector: 'signup-form',
             templateUrl: 'app/modules/login/components/signup.component.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, auth_service_1.AuthService])
     ], SignupFormComponent);
     return SignupFormComponent;
 }());

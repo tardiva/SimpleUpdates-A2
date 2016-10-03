@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user-data.service';
@@ -14,14 +15,15 @@ import { User } from '../../../models/user';
 
 export class NavigationComponent implements OnInit {
   
-    currentUserName: string;
-    isAdmin: boolean;
-    initTest: string;
+    private currentUserName: string;
+    private isAdmin: boolean;
+    private initTest: string;
+    private isAdminLinkActive: boolean;
     
-    constructor(private authService: AuthService, private userService: UserService) {
-                          
+    constructor(private router: Router, private authService: AuthService, private userService: UserService) {
+                                      
     }
-    
+          
     getCurrentUser() {
      
         this.authService.getCurrentUser().then(user => {this.currentUserName = user.first_name + " " + user.last_name;
@@ -37,5 +39,6 @@ export class NavigationComponent implements OnInit {
     ngOnInit() {
         
         this.getCurrentUser();
+        this.isAdminLinkActive = this.router.isActive('/admin', false);
     }
 }

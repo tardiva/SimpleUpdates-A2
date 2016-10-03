@@ -9,10 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var auth_service_1 = require('../../../services/auth.service');
 var user_data_service_1 = require('../../../services/user-data.service');
 var NavigationComponent = (function () {
-    function NavigationComponent(authService, userService) {
+    function NavigationComponent(router, authService, userService) {
+        this.router = router;
         this.authService = authService;
         this.userService = userService;
     }
@@ -29,13 +31,14 @@ var NavigationComponent = (function () {
     };
     NavigationComponent.prototype.ngOnInit = function () {
         this.getCurrentUser();
+        this.isAdminLinkActive = this.router.isActive('/admin', false);
     };
     NavigationComponent = __decorate([
         core_1.Component({
             selector: 'navigation',
             templateUrl: 'app/modules/home/components/navigation.component.html'
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, user_data_service_1.UserService])
+        __metadata('design:paramtypes', [router_1.Router, auth_service_1.AuthService, user_data_service_1.UserService])
     ], NavigationComponent);
     return NavigationComponent;
 }());

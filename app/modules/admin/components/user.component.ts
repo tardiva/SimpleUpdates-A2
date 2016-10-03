@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../../../services/user-data.service';
+import { ValidationService }  from '../../../services/validation.service';
 
 import { User } from '../../../models/user';
 
@@ -16,9 +17,11 @@ export class UserComponent implements OnInit {
   
   private editUserForm: FormGroup;
   private editMode: Boolean;
+  private formErrors: any;
  
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private validationService: ValidationService) {
   }
 
   ngOnInit() {
@@ -26,10 +29,14 @@ export class UserComponent implements OnInit {
      this.editUserForm = this.formBuilder.group({
              firstName: [this.user.first_name, Validators.required],
              lastName: [this.user.last_name, Validators.required],
-             email: [this.user.email, Validators.required],
+             email: [this.user.email],
              isAdmin: [this.user.is_admin]
      });
      this.editMode = false;
+      
+     this.formErrors = {firstName: {error: '', messages: ''}, lastName: {error: '', messages: ''}};
+     this.editUserForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.editUserForm, this.formErrors, data)); 
   }
       
   private showRowEditor() {
@@ -46,10 +53,14 @@ export class UserComponent implements OnInit {
     
   private editUser() {
       
+      if (this.editUserForm.valid) {
       let user = this.editUserForm.value;
       user.id = this.user.id;
-      console.log(user);
       this.userService.editUser(user).then(()=> this.userUpdated.emit())
+      }
+      else {
+         this.formErrors = this.validationService.onSubmit(this.editUserForm, this.formErrors);
+      }
   }
     
   private submit(event)  {

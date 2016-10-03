@@ -12,6 +12,11 @@ a.current-user {
 
 /*-------FORM--------*/
 
+form input {
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
 section.new-update {
     margin-bottom: 50px;
     /*padding-bottom: 4px;*/
@@ -33,10 +38,6 @@ section.new-update {
     background-color: #7e7b7b;
     border-color: #605f5f;
 }
-
-/*#new-update-form .main-dd-btn {
-    width: 100px;
-}*/
 
 .form-content {
     display: flex;
@@ -124,20 +125,23 @@ section.new-update {
 /*-------DROPDOWN--------*/
 
 .main-dd-btn {
+   display: flex;
+   justify-content: flex-start;
+   white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
 }
 
 .dropdown a {
-text-decoration: none
+   text-decoration: none
 }
 
-.dropdown-item .circle,  .dropdown-item span, .main-dd-btn .circle, .main-dd-btn span {
+.dropdown-item .circle,  .dropdown-item span {
     vertical-align: middle;
 }
 
-.dropdown-item span, .main-dd-btn span {
-    display: inline-block;
+/*.dropdown-item span, .main-dd-btn span {
+    display: inline-block;*/
 }
 
 /*-------UPDATES LIST--------*/
@@ -156,6 +160,7 @@ text-decoration: none
 .update-info, .update-text {
     padding-right: 0 !important;
     padding-left: 0 !important;
+    margin-bottom: 10px;
 }
 
 .circle {
@@ -341,4 +346,11 @@ div.project-item:hover , .selected {
 
 .hidden {
     display: none;
+}
+
+.validation-message {
+    
+    color: red;
+    font-size: 0.875rem;
+    margin: 0;
 }

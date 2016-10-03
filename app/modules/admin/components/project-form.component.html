@@ -8,11 +8,13 @@
 <form id = "new-project-form" class = "new-project" [formGroup]="newProjectForm">
         
   <div class = "form-group"> 
-    <input id = "add-project-name" class = "new-project-name form-control" type = "text" placeholder = "Project Name" formControlName = "name">
+    <input id = "add-project-name" class = "new-project-name form-control" type = "text" placeholder = "Project Name" [class.has-errors] = "formErrors.name.error" formControlName = "name">
+    <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
   </div>
     
    <div class = "form-group"> 
-    <dropdown [options] = "usersOptions" [placeholder] = "'Project Manager'" formControlName = "manager"></dropdown>
+    <dropdown [options] = "usersOptions" [placeholder] = "'Project Manager'" formControlName = "manager" [hasErrors] = "formErrors.manager.error"></dropdown>
+    <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.manager.messages}}</p>
   </div>  
     
   <div class = "form-group">    

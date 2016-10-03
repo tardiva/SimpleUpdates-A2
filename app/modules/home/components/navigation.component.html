@@ -3,11 +3,11 @@
   <a class="navbar-brand" href="#">Simple Updates</a>
       
   <ul class="nav navbar-nav">
-    <li class="nav-item active">
-      <a class = "nav-link" href="#" [routerLink] = "['/']">Updates</a>
+    <li class="nav-item">
+      <a class = "nav-link" href="#" [routerLink] = "['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Updates</a>
     </li>
       
-    <li class = "nav-item dropdown" *ngIf = "isAdmin">
+    <li class = "nav-item dropdown" [class.active] = "isAdminLinkActive" *ngIf = "isAdmin">
       <a class = "nav-link dropdown-toggle" data-toggle = "dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
         Administration
       </a>

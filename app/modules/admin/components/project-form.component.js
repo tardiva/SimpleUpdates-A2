@@ -12,19 +12,25 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var projects_data_service_1 = require('../../../services/projects-data.service');
 var user_data_service_1 = require('../../../services/user-data.service');
+var validation_service_1 = require('../../../services/validation.service');
 var ProjectFormComponent = (function () {
-    function ProjectFormComponent(formBuilder, projectsDataService, userService) {
+    function ProjectFormComponent(formBuilder, projectsDataService, userService, validationService) {
         this.formBuilder = formBuilder;
         this.projectsDataService = projectsDataService;
         this.userService = userService;
+        this.validationService = validationService;
         this.closeForm = new core_1.EventEmitter();
         this.newProject = new core_1.EventEmitter();
     }
     ProjectFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.newProjectForm = this.formBuilder.group({
             name: ['', forms_1.Validators.required],
             manager: ['', forms_1.Validators.required]
         });
+        this.formErrors = { name: { error: '', messages: '' }, manager: { error: '', messages: '' } };
+        this.newProjectForm.valueChanges
+            .subscribe(function (data) { return _this.formErrors = _this.validationService.onValueChanged(_this.newProjectForm, _this.formErrors, data); });
     };
     ProjectFormComponent.prototype.addProject = function () {
         var _this = this;
@@ -32,6 +38,9 @@ var ProjectFormComponent = (function () {
             this.projectsDataService.addProject(this.newProjectForm.value)
                 .then(function () { return _this.newProject.emit(); });
             this.resetForm();
+        }
+        else {
+            this.formErrors = this.validationService.onSubmit(this.newProjectForm, this.formErrors);
         }
     };
     ProjectFormComponent.prototype.resetForm = function () {
@@ -56,7 +65,7 @@ var ProjectFormComponent = (function () {
             selector: 'project-form',
             templateUrl: 'app/modules/admin/components/project-form.component.html',
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService, user_data_service_1.UserService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService, user_data_service_1.UserService, validation_service_1.ValidationService])
     ], ProjectFormComponent);
     return ProjectFormComponent;
 }());

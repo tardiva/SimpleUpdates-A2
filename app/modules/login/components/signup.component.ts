@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
     @Component({
         
@@ -11,31 +13,27 @@ export class SignupFormComponent implements OnInit {
     
     signupForm: FormGroup;
     
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
     
     ngOnInit() {
 
       this.signupForm = this.formBuilder.group({
-        teamName: [''],  
-        email: [''],
-        password: ['']
+        teamName: ['', Validators.required],  
+        email: ['', Validators.required],
+        password: ['', Validators.required]
         });
     }
     
     signup() {
         
-       /*const controls = this.signupForm.controls;
-
-       Accounts.createUser({
-         email: controls.email.value,
-         password: controls.password.value,
-         /*profile: {
-                   firstName: controls.firstName.value,
-                   lastName: controls.lastName.value
-        },   
-        isAdmin: controls.isAdmin.value,
-        tenantId: tenantId    
-       });*/
+        if (this.signupForm.valid) {
+        let user = {tenantName: this.signupForm.value.teamName,
+                    email: this.signupForm.value.email,
+                    password: Md5.hashStr(this.signupForm.value.password)};
+                  
+        this.authService.signUp(user)
+          .then(() => null);
+        }
     }
- 
 }
+ 

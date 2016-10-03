@@ -18,7 +18,6 @@ var ClickOutsideDirective = (function () {
         var isInside = this.elementRef.nativeElement.contains(targetElement);
         if (!isInside) {
             this.clickOutside.emit();
-            console.log('click outside!' + targetElement);
         }
     };
     __decorate([

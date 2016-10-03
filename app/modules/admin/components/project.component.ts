@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { UserService } from '../../../services/user-data.service';
+import { ValidationService }  from '../../../services/validation.service';
 
 import { User } from '../../../models/user';
 
@@ -21,11 +22,13 @@ export class ProjectComponent implements OnInit {
   private projectManager: User;
   private editMode: Boolean;
   private usersOptions: any[];
+  private formErrors: any;
     
 
   constructor(private formBuilder: FormBuilder,
               private projectsDataService: ProjectsDataService,
-              private userService: UserService) {
+              private userService: UserService,
+              private validationService: ValidationService) {
   }
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class ProjectComponent implements OnInit {
      });
      this.editMode = false;
      this.usersOptions = [];
+      
+     this.formErrors = {name: {error: '', messages: ''}, manager: {error: '', messages: ''}};
+     this.editProjectForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.editProjectForm, this.formErrors, data)); 
      
   }
     
@@ -63,9 +70,14 @@ export class ProjectComponent implements OnInit {
     
   private editProject() {
       
+      if (this.editProjectForm.valid) {
       let project = this.editProjectForm.value;
       project.id = this.project.id;
       this.projectsDataService.editProject(project).then(()=> this.projectUpdated.emit())
+      }
+      else {
+         this.formErrors = this.validationService.onSubmit(this.editProjectForm, this.formErrors);
+      }
       
       
   }

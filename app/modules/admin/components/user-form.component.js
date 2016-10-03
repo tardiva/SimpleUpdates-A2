@@ -11,27 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var user_data_service_1 = require('../../../services/user-data.service');
+var validation_service_1 = require('../../../services/validation.service');
 var UserFormComponent = (function () {
-    function UserFormComponent(formBuilder, userService) {
+    function UserFormComponent(formBuilder, userService, validationService) {
         this.formBuilder = formBuilder;
         this.userService = userService;
+        this.validationService = validationService;
         this.closeForm = new core_1.EventEmitter();
         this.newUser = new core_1.EventEmitter();
     }
     UserFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.newUserForm = this.formBuilder.group({
             firstName: ['', forms_1.Validators.required],
             lastName: ['', forms_1.Validators.required],
             email: ['', forms_1.Validators.required],
-            isAdmin: ['', forms_1.Validators.required],
+            isAdmin: [false],
         });
+        this.formErrors = { firstName: { error: '', messages: '' }, lastName: { error: '', messages: '' }, email: { error: '', messages: '' } };
+        this.newUserForm.valueChanges
+            .subscribe(function (data) { return _this.formErrors = _this.validationService.onValueChanged(_this.newUserForm, _this.formErrors, data); });
     };
     UserFormComponent.prototype.addUser = function () {
-        /*if (this.newProjectForm.valid) {
-           this.projectsDataService.addProject(this.newProjectForm.value)
-               .then(()=> this.newProject.emit());
-           this.resetForm();
-         }*/
+        var _this = this;
+        if (this.newUserForm.valid) {
+            this.userService.addUser(this.newUserForm.value)
+                .then(function () { return _this.newUser.emit(); });
+            this.resetForm();
+        }
+        else {
+            this.formErrors = this.validationService.onSubmit(this.newUserForm, this.formErrors);
+        }
     };
     UserFormComponent.prototype.resetForm = function () {
         this.newUserForm.reset();
@@ -50,7 +60,7 @@ var UserFormComponent = (function () {
             selector: 'user-form',
             templateUrl: 'app/modules/admin/components/user-form.component.html',
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, user_data_service_1.UserService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, user_data_service_1.UserService, validation_service_1.ValidationService])
     ], UserFormComponent);
     return UserFormComponent;
 }());

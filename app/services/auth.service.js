@@ -19,6 +19,7 @@ var AuthService = (function () {
         this.http = http;
         this.httpAuth = httpAuth;
         this.loginUrl = 'http://localhost:8000/api/login';
+        this.signupUrl = 'http://localhost:8000/api/signup';
         this.currentUserUrl = 'http://localhost:8000/api/current_user';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this.token = localStorage.getItem('auth_token');
@@ -75,6 +76,14 @@ var AuthService = (function () {
         this.currentUser = null;
         localStorage.removeItem('user');
         this.router.navigate(['/login']);
+    };
+    AuthService.prototype.signUp = function (user) {
+        var url = this.signupUrl;
+        return this.http
+            .post(url, JSON.stringify(user), { headers: this.headers })
+            .toPromise()
+            .then(function (response) { console.log(response.json().Message); })
+            .catch(this.handleError);
     };
     AuthService = __decorate([
         core_1.Injectable(), 

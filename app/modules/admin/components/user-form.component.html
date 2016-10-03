@@ -8,15 +8,18 @@
 <form id = "new-project-form" class = "new-project" [formGroup]="newUserForm">
         
   <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "First Name" formControlName = "firstName">
+    <input class = "new-project-name form-control" type = "text" placeholder = "First Name" formControlName = "firstName" [class.has-errors] = "formErrors.firstName.error">
+    <p class = "validation-message" [class.hidden] = "!formErrors.firstName.error">{{formErrors.firstName.messages}}</p>
   </div>
     
    <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "Last Name" formControlName = "lastName">
+    <input class = "new-project-name form-control" type = "text" placeholder = "Last Name" formControlName = "lastName" [class.has-errors] = "formErrors.lastName.error">
+    <p class = "validation-message" [class.hidden] = "!formErrors.lastName.error">{{formErrors.lastName.messages}}</p>
    </div>
     
     <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "Email" formControlName = "email">
+    <input class = "new-project-name form-control" type = "text" placeholder = "Email" formControlName = "email" [class.has-errors] = "formErrors.email.error">
+    <p class = "validation-message" [class.hidden] = "!formErrors.email.error">{{formErrors.email.messages}}</p>   
     </div>
     
     <div class="form-check">
@@ -27,7 +30,7 @@
    </div>
     
   <div class = "form-group">    
-    <button type="submit" class="new-project-btn btn btn-primary btn-sm" (click)="addProject()">Submit</button>
+    <button type="submit" class="new-project-btn btn btn-primary btn-sm" (click)="addUser()">Submit</button>
        
     <button type="button" class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()">Cancel</button>
   </div>

@@ -18,10 +18,12 @@
 
   <form [formGroup]= "editUserForm" (ngSubmit) = "editUser()" class = "row edit-mode" [class.hidden] = "!editMode">
     <div class = "col-md-3">
-        <input formControlName = "firstName" (keypress) = "submit($event)">
+        <input formControlName = "firstName" (keypress) = "submit($event)" [class.has-errors] = "formErrors.firstName.error">
+        <p class = "validation-message" [class.hidden] = "!formErrors.firstName.error">{{formErrors.firstName.messages}}</p>
     </div>
     <div class = "col-md-3">
-        <input formControlName = "lastName" (keypress) = "submit($event)">
+        <input formControlName = "lastName" (keypress) = "submit($event)" [class.has-errors] = "formErrors.lastName.error">
+        <p class = "validation-message" [class.hidden] = "!formErrors.lastName.error">{{formErrors.lastName.messages}}</p>
     </div>
     <div class = "col-md-3">
         <input formControlName = "email" disabled>

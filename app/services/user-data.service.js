@@ -32,6 +32,12 @@ var UserService = (function () {
             .put(url, user)
             .then(function () { return null; });
     };
+    UserService.prototype.addUser = function (user) {
+        var url = this.usersUrl;
+        return this.httpAuth
+            .post(url, user)
+            .then(function () { return null; });
+    };
     UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [httpAuth_service_1.httpAuth])

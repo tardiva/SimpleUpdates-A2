@@ -1,6 +1,6 @@
 <div class="btn-group">
-  <button class="btn btn-secondary btn-sm main-dd-btn" [class.has-errors] = "hasErrors" type="button">
-      <div *ngIf = "selectedIcon" [class] = "selectedIcon"></div><span>{{selectedLabel}}</span>
+  <button class="btn btn-secondary btn-sm main-dd-btn" data-toggle="dropdown" [class.has-errors] = "hasErrors" type="button">
+      <div *ngIf = "selectedIcon" [class] = "selectedIcon"></div>{{selectedLabel}}
   </button>
   <button class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" [class.has-errors] = "hasErrors" data-toggle="dropdown" type="button" >
     <span class="sr-only">Toggle Dropdown</span>
@@ -9,6 +9,16 @@
       <button *ngFor = "let option of options" class="dropdown-item" type = "button" [value] = "option.key" (click)="onSelect(option)"><div *ngIf = "option.icon" [class] = "option.icon"></div><span>{{option.label}}</span></button>
   </div>
 </div>
+
+
+<!--<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle btn-sm main-dd-btn" type="button" data-toggle="dropdown" [class.has-errors] = "hasErrors">
+    <div *ngIf = "selectedIcon" [class] = "selectedIcon"></div><span>{{selectedLabel}}</span>
+  </button>
+  <div class="dropdown-menu">
+      <button *ngFor = "let option of options" class="dropdown-item" type = "button" [value] = "option.key" (click)="onSelect(option)"><div *ngIf = "option.icon" [class] = "option.icon"></div><span>{{option.label}}</span></button>
+  </div>
+</div>-->
 
 
 

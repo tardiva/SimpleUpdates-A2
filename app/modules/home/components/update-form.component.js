@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var projects_data_service_1 = require('../../../services/projects-data.service');
 var updates_data_service_1 = require('../../../services/updates-data.service');
+var validation_service_1 = require('../../../services/validation.service');
 var UpdateFormComponent = (function () {
-    function UpdateFormComponent(formBuilder, projectsDataService, updatesDataService) {
+    function UpdateFormComponent(formBuilder, projectsDataService, updatesDataService, validationService) {
         this.formBuilder = formBuilder;
         this.projectsDataService = projectsDataService;
         this.updatesDataService = updatesDataService;
+        this.validationService = validationService;
         this.newUpdate = new core_1.EventEmitter();
     }
     UpdateFormComponent.prototype.ngOnInit = function () {
@@ -30,47 +32,25 @@ var UpdateFormComponent = (function () {
         this.statusesOptions = [{ key: 1, label: 'High', icon: 'circle red' },
             { key: 2, label: 'Medium', icon: 'circle yellow' },
             { key: 3, label: 'Low', icon: 'circle green' }];
+        this.formErrors = { status: { error: '', messages: '' }, project: { error: '', messages: '' }, text: { error: '', messages: '' } };
         this.newUpdateForm.valueChanges
-            .subscribe(function (data) { return _this.onValueChanged(data); });
-        this.onValueChanged();
-        this.formErrors = { status: '', project: '', text: '' };
+            .subscribe(function (data) { return _this.formErrors = _this.validationService.onValueChanged(_this.newUpdateForm, _this.formErrors, data); });
     };
     UpdateFormComponent.prototype.addUpdate = function () {
         var _this = this;
-        console.log(this.newUpdateForm.valid + " " + this.newUpdateForm.dirty);
         if (this.newUpdateForm.valid) {
             this.updatesDataService.add(this.newUpdateForm.value)
                 .then(function () { return _this.newUpdate.emit(); });
             this.resetForm();
         }
         else {
-            var form = this.newUpdateForm;
-            for (var el in this.formErrors) {
-                var control = form.controls[el];
-                if (control && !control.valid) {
-                    this.formErrors[el] = true;
-                }
-            }
+            this.formErrors = this.validationService.onSubmit(this.newUpdateForm, this.formErrors);
         }
     };
     UpdateFormComponent.prototype.getProjectsList = function () {
         var _this = this;
         this.projectsDataService.getProjects()
             .then(function (projects) { return _this.projectsOptions = projects.map(function (item) { return { key: item.id, label: item.name }; }); });
-    };
-    UpdateFormComponent.prototype.onValueChanged = function (data) {
-        if (!this.newUpdateForm) {
-            return;
-        }
-        ;
-        var form = this.newUpdateForm;
-        for (var el in this.formErrors) {
-            this.formErrors[el] = '';
-            var control = form.controls[el];
-            if (control && control.dirty && !control.valid) {
-                this.formErrors[el] = true;
-            }
-        }
     };
     UpdateFormComponent.prototype.resetForm = function () {
         this.newUpdateForm.reset();
@@ -90,7 +70,7 @@ var UpdateFormComponent = (function () {
             selector: 'update-form',
             templateUrl: 'app/modules/home/components/update-form.component.html',
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService, updates_data_service_1.UpdatesDataService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, projects_data_service_1.ProjectsDataService, updates_data_service_1.UpdatesDataService, validation_service_1.ValidationService])
     ], UpdateFormComponent);
     return UpdateFormComponent;
 }());

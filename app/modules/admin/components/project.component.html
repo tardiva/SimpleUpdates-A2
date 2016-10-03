@@ -11,10 +11,12 @@
 
   <form [formGroup]= "editProjectForm" (ngSubmit) = "editProject()" class = "row edit-mode" [class.hidden] = "!editMode">
     <div class = "col-md-6">
-        <input formControlName = "name">
+        <input [class.has-errors] = "formErrors.name.error" formControlName = "name">
+        <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
     </div>
     <div class = "col-md-6">
-        <dropdown [options] = "usersOptions" formControlName = "manager"></dropdown>
+        <dropdown [options] = "usersOptions" [hasErrors] = "formErrors.manager.error" formControlName = "manager"></dropdown>
+        <p class = "validation-message" [class.hidden] = "!formErrors.manager.error">{{formErrors.manager.messages}}</p>
     </div>
   </form>
     

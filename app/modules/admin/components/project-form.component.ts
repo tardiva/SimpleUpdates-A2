@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { UserService } from '../../../services/user-data.service';
+import { ValidationService }  from '../../../services/validation.service';
 
 import { User } from '../../../models/user';
 
@@ -15,10 +16,12 @@ import { User } from '../../../models/user';
 export class ProjectFormComponent implements OnInit {
   
   private newProjectForm: FormGroup;
+  private formErrors: any;
   
   constructor(private formBuilder: FormBuilder,
               private projectsDataService: ProjectsDataService,
-              private userService: UserService) {
+              private userService: UserService,
+              private validationService: ValidationService) {
   }
 
   ngOnInit() {
@@ -27,6 +30,11 @@ export class ProjectFormComponent implements OnInit {
         name: ['', Validators.required],
         manager: ['', Validators.required]  
      });
+      
+     this.formErrors = {name: {error: '', messages: ''}, manager:  {error: '', messages: ''}};
+      
+     this.newProjectForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.newProjectForm, this.formErrors, data)); 
   }
     
   private addProject(): void {
@@ -36,8 +44,11 @@ export class ProjectFormComponent implements OnInit {
             .then(()=> this.newProject.emit());
         this.resetForm();    
       }
+     else {
+         this.formErrors = this.validationService.onSubmit(this.newProjectForm, this.formErrors);
+     }
   }
-        
+          
   private resetForm(): void {
 
    /*this.newProjectForm.controls['name']['updateValue']('');*/

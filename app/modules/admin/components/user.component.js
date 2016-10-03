@@ -11,20 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var user_data_service_1 = require('../../../services/user-data.service');
+var validation_service_1 = require('../../../services/validation.service');
 var UserComponent = (function () {
-    function UserComponent(formBuilder, userService) {
+    function UserComponent(formBuilder, userService, validationService) {
         this.formBuilder = formBuilder;
         this.userService = userService;
+        this.validationService = validationService;
         this.userUpdated = new core_1.EventEmitter();
     }
     UserComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.editUserForm = this.formBuilder.group({
             firstName: [this.user.first_name, forms_1.Validators.required],
             lastName: [this.user.last_name, forms_1.Validators.required],
-            email: [this.user.email, forms_1.Validators.required],
+            email: [this.user.email],
             isAdmin: [this.user.is_admin]
         });
         this.editMode = false;
+        this.formErrors = { firstName: { error: '', messages: '' }, lastName: { error: '', messages: '' } };
+        this.editUserForm.valueChanges
+            .subscribe(function (data) { return _this.formErrors = _this.validationService.onValueChanged(_this.editUserForm, _this.formErrors, data); });
     };
     UserComponent.prototype.showRowEditor = function () {
         if (!this.editMode) {
@@ -38,10 +44,14 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.editUser = function () {
         var _this = this;
-        var user = this.editUserForm.value;
-        user.id = this.user.id;
-        console.log(user);
-        this.userService.editUser(user).then(function () { return _this.userUpdated.emit(); });
+        if (this.editUserForm.valid) {
+            var user = this.editUserForm.value;
+            user.id = this.user.id;
+            this.userService.editUser(user).then(function () { return _this.userUpdated.emit(); });
+        }
+        else {
+            this.formErrors = this.validationService.onSubmit(this.editUserForm, this.formErrors);
+        }
     };
     UserComponent.prototype.submit = function (event) {
         if (event.keyCode == 13) {
@@ -61,7 +71,7 @@ var UserComponent = (function () {
             selector: 'user',
             templateUrl: 'app/modules/admin/components/user.component.html',
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, user_data_service_1.UserService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, user_data_service_1.UserService, validation_service_1.ValidationService])
     ], UserComponent);
     return UserComponent;
 }());

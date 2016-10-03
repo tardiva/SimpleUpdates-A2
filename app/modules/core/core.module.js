@@ -14,6 +14,7 @@ var http_1 = require('@angular/http');
 var httpAuth_service_1 = require('../../services/httpAuth.service');
 var auth_service_1 = require('../../services/auth.service');
 var user_data_service_1 = require('../../services/user-data.service');
+var validation_service_1 = require('../../services/validation.service');
 var logged_in_guard_1 = require('../../guards/logged-in.guard');
 var is_admin_guard_1 = require('../../guards/is-admin.guard');
 var CoreModule = (function () {
@@ -24,7 +25,7 @@ var CoreModule = (function () {
             imports: [common_1.CommonModule, http_1.HttpModule],
             declarations: [],
             exports: [],
-            providers: [httpAuth_service_1.httpAuth, auth_service_1.AuthService, user_data_service_1.UserService, logged_in_guard_1.LoggedInGuard, is_admin_guard_1.IsAdminGuard]
+            providers: [httpAuth_service_1.httpAuth, auth_service_1.AuthService, user_data_service_1.UserService, validation_service_1.ValidationService, logged_in_guard_1.LoggedInGuard, is_admin_guard_1.IsAdminGuard]
         }), 
         __metadata('design:paramtypes', [])
     ], CoreModule);

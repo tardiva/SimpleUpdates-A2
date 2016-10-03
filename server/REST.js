@@ -35,8 +35,51 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
             }
         });
     });
-
-    router.post("/users",function(req,res){
+        
+    router.post("/signup",
+        
+        function(req,res,next){
+        var query = "INSERT INTO `tenants`(`name`) VALUES (?)";
+        var table = [req.body.tenantName];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query MW1" + err});
+            } else {
+                next();
+            }
+        });
+        },  
+                
+        function(req,res,next){
+        var query = "SELECT `id` FROM `tenants` WHERE `name` = ?";
+        var table = [req.body.tenantName];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query MW2" + err});
+            } else {
+                req.tenantId = rows[0].id;
+                next();
+            }
+        });
+        },                
+                
+        function(req,res){
+        var query = "INSERT INTO `users`(`is_active`, `tenant_id`, `email`,`password`,`is_admin`,`first_name`,`last_name`) VALUES (?,?,?,?,?,?,?)";
+        var table = [0, req.tenantId, req.body.email, req.body.password, 1, req.body.firstName, req.body.lastName];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query MW3" + err});
+            } else {
+                res.json({"Error" : false, "Message" : "User Added !"});
+            }
+        });
+    });
+    
+    /*for testing purposes*/
+    router.post("/testusers",function(req,res){
         var query = "INSERT INTO `users`(`email`,`password`,`is_admin`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?,?)";
         var table = [req.body.email, md5(req.body.password), req.body.is_admin, req.body.first_name, req.body.last_name, 1];
         query = mysql.format(query,table);
@@ -49,9 +92,23 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
         });
     });
     
+    
+    router.post("/users",jwtAuth, isAdmin, function(req,res){
+        var query = "INSERT INTO `users`(`is_active`, `email`,`is_admin`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?,?)";
+        var table = [0, req.body.email, req.body.isAdmin, req.body.firstName, req.body.lastName, req.tenant_id];
+        query = mysql.format(query,table);
+        connection.query(query,function(err,rows){
+            if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query" + err});
+            } else {
+                res.json({"Error" : false, "Message" : "User Added !"});
+            }
+        });
+    });
+    
     router.put("/users", jwtAuth, isAdmin, function(req,res){
-        var query = "UPDATE `users`SET `first_name` = ?, `last_name` = ? WHERE `id` = ?";
-        var table = [req.body.firstName, req.body.lastName, req.body.id];
+        var query = "UPDATE `users`SET `first_name` = ?, `last_name` = ?, `is_admin` = ? WHERE `id` = ?";
+        var table = [req.body.firstName, req.body.lastName, req.body.isAdmin, req.body.id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {

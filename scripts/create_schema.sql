@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `simple_updates`.`users` (
   `is_admin`BOOLEAN NOT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
+  `is_active` BOOLEAN NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;

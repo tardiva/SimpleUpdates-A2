@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../../../services/user-data.service';
+import { ValidationService }  from '../../../services/validation.service';
 
 import { User } from '../../../models/user';
 
@@ -14,9 +15,12 @@ import { User } from '../../../models/user';
 export class UserFormComponent implements OnInit {
   
   private newUserForm: FormGroup;
+  private formErrors: any;
+ 
   
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private validationService: ValidationService) {
   }
 
   ngOnInit() {
@@ -25,19 +29,28 @@ export class UserFormComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         email: ['', Validators.required],
-        isAdmin: ['', Validators.required],
+        isAdmin: [false],
      });
+      
+     this.formErrors = {firstName: {error: '', messages: ''}, lastName: {error: '', messages: ''}, email: {error: '', messages: ''}};
+     this.newUserForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.newUserForm, this.formErrors, data));
+  
   }
     
   private addUser(): void {
     
-     /*if (this.newProjectForm.valid) {
-        this.projectsDataService.addProject(this.newProjectForm.value)
-            .then(()=> this.newProject.emit());
+     if (this.newUserForm.valid) {
+            this.userService.addUser(this.newUserForm.value)
+            .then(()=> this.newUser.emit());
         this.resetForm();    
-      }*/
+      }
+       else {
+         this.formErrors = this.validationService.onSubmit(this.newUserForm, this.formErrors);
+      }
+      
   }
-        
+          
   private resetForm(): void {
    
      this.newUserForm.reset();

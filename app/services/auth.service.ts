@@ -12,6 +12,7 @@ import { User } from '../models/user';
 export class AuthService {
     
     private loginUrl = 'http://localhost:8000/api/login';
+    private signupUrl = 'http://localhost:8000/api/signup';
     private currentUserUrl = 'http://localhost:8000/api/current_user';
     private headers = new Headers({'Content-Type': 'application/json'});
     
@@ -87,6 +88,17 @@ export class AuthService {
         localStorage.removeItem('user'); 
         this.router.navigate(['/login']);
        
+   }
+
+   public signUp(user) {
+       
+        const url = this.signupUrl;
+        return this.http
+              .post(url, JSON.stringify(user), {headers: this.headers})
+              .toPromise()
+              .then((response) => { console.log(response.json().Message) })
+              .catch(this.handleError);
+                         
    }
 
 }

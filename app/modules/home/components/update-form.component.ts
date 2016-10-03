@@ -1,19 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-//import { DropdownComponent } from '../../shared/components/dropdown.component';
-
 import { Project} from '../../../models/project';
 import { Update} from '../../../models/update';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { UpdatesDataService } from '../../../services/updates-data.service';
+import { ValidationService }  from '../../../services/validation.service';
 
 @Component({
 
   selector: 'update-form',
   templateUrl: 'app/modules/home/components/update-form.component.html',
-  //directives: [ DropdownComponent ]    
-  
+    
 })
 
 export class UpdateFormComponent implements OnInit {
@@ -25,7 +23,8 @@ export class UpdateFormComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder,
               private projectsDataService: ProjectsDataService,
-              private updatesDataService: UpdatesDataService) {
+              private updatesDataService: UpdatesDataService,
+              private validationService: ValidationService) {
            
   }
     
@@ -41,32 +40,23 @@ export class UpdateFormComponent implements OnInit {
      this.statusesOptions = [{key:1, label: 'High', icon: 'circle red'},
                              {key:2, label: 'Medium', icon: 'circle yellow'},
                              {key:3, label: 'Low', icon: 'circle green'}];
-          
-     this.newUpdateForm.valueChanges
-         .subscribe(data => this.onValueChanged(data));
+                 
+      this.formErrors = {status: {error: '', messages: ''}, project: {error: '', messages: ''}, text: {error: '', messages: ''}};
       
-     this.onValueChanged();
-      
-     this.formErrors = {status: '', project: '', text: ''} 
+      this.newUpdateForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.newUpdateForm, this.formErrors, data));
      
   }  
     
   private addUpdate(): void {
       
-     console.log(this.newUpdateForm.valid +" "+ this.newUpdateForm.dirty); 
-     if (this.newUpdateForm.valid) {
+      if (this.newUpdateForm.valid) {
        this.updatesDataService.add(this.newUpdateForm.value)
            .then(()=>this.newUpdate.emit());
        this.resetForm();
      }
       else {
-        const form = this.newUpdateForm;
-        for (let el in this.formErrors) {
-          const control = form.controls[el];
-          if (control && !control.valid) {
-            this.formErrors[el] = true;
-          }
-        }
+        this.formErrors = this.validationService.onSubmit(this.newUpdateForm, this.formErrors);
       }
   }
     
@@ -76,30 +66,13 @@ export class UpdateFormComponent implements OnInit {
          .then(projects => this.projectsOptions = projects.map((item) => {return {key: item.id, label: item.name}}));
   }
     
-  private onValueChanged(data?: any) {
-    
-     if (!this.newUpdateForm) { return;};
-                         
-     const form = this.newUpdateForm;
-     for (let el in this.formErrors) {
-       
-       this.formErrors[el] = '';
-       const control = form.controls[el];
-                                
-       if (control && control.dirty && !control.valid) {
-          this.formErrors[el] = true;
-        }
-      }
-  }
-      
   private resetForm(): void {
       
      this.newUpdateForm.reset();
       
      let el = document.getElementById('new-update-text'); //to be reworked
      el.style.height = '33px';
-      
-      
+  
   }  
     
   private resize(event): void {

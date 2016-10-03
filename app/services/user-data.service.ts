@@ -37,6 +37,16 @@ export class UserService {
                .put(url, user)
                .then(()=> null)
   }
+   
+    public addUser(user: User) {
+        
+        const url = this.usersUrl;
+                
+        return this.httpAuth
+               .post(url, user)
+               .then(()=> null)
+        
+    }
 }
 
 
