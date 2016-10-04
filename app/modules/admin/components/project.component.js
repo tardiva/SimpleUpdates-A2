@@ -19,19 +19,22 @@ var ProjectComponent = (function () {
         this.projectsDataService = projectsDataService;
         this.userService = userService;
         this.validationService = validationService;
+        //@Input() usersOptions: any[];
         this.projectUpdated = new core_1.EventEmitter();
     }
     ProjectComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.editProjectForm = this.formBuilder.group({
             name: ['', forms_1.Validators.required],
-            manager: ['', forms_1.Validators.required]
+            manager: [this.project.manager, forms_1.Validators.required]
         });
         this.editMode = false;
         this.usersOptions = [];
+        /*---Form validation---*/
         this.formErrors = { name: { error: '', messages: '' }, manager: { error: '', messages: '' } };
         this.editProjectForm.valueChanges
             .subscribe(function (data) { return _this.formErrors = _this.validationService.onValueChanged(_this.editProjectForm, _this.formErrors, data); });
+        console.log('Init test');
     };
     ProjectComponent.prototype.getManagersList = function () {
         var _this = this;
@@ -40,10 +43,11 @@ var ProjectComponent = (function () {
     ProjectComponent.prototype.showRowEditor = function () {
         var _this = this;
         if (!this.editMode) {
-            this.editMode = true;
+            //this.editMode = true;
             this.userService.getUsers().then(function (users) {
                 _this.usersOptions = users.map(function (item) { return { key: item.id, label: item.first_name + ' ' + item.last_name }; });
                 _this.editProjectForm.setValue({ name: _this.project.name, manager: _this.project.manager });
+                _this.editMode = true;
                 console.log(_this.editProjectForm.value);
             });
         }

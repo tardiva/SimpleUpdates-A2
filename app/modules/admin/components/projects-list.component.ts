@@ -25,6 +25,12 @@ export class ProjectsListComponent implements OnInit {
 constructor(private projectsDataService: ProjectsDataService, private userService: UserService){
     
 }
+    
+ngOnInit(): void {
+    this.getProjects();
+    this.getManagersList();
+    this.isFormHidden = true;
+}    
 
 private getProjects(): void {
     this.projectsDataService.getProjects().then(projects => this.projects = projects);
@@ -46,12 +52,5 @@ private showNewForm(): void {
     {this.isFormHidden = false;}
     else {this.isFormHidden = true;}
   } 
-    
-ngOnInit(): void {
-    this.getProjects();
-    this.getManagersList();
-    this.isFormHidden = true;
-}
-    
    
 }

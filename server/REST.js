@@ -20,7 +20,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query" + err});
             } else {
                 if (!rows[0])
-                    {res.json({"Error" : false, "Success" : false});};
+                    {res.status(401).send('Unauthorized');};
                 if (rows[0])
                     {  var expires = new Date;
                        expires.setUTCDate(expires.getUTCDate() + 7);

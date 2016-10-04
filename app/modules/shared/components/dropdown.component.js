@@ -33,13 +33,14 @@ var DropdownComponent = (function () {
     // }
     // }
     DropdownComponent.prototype.writeValue = function (value) {
-        if (value !== undefined && this.placeholder) {
+        if (this.placeholder) {
             this.selectedValue = value;
             this.selectedLabel = this.placeholder;
             this.selectedIcon = '';
         }
-        else {
+        else if (value !== undefined) {
             var options = this.options;
+            console.log(options);
             for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
                 var option = options_1[_i];
                 if (option.key == value) {

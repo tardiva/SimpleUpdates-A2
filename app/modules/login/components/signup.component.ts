@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { ValidationService }  from '../../../services/validation.service';
 import { Md5 } from 'ts-md5/dist/md5';
 
     @Component({
@@ -11,9 +12,11 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 export class SignupFormComponent implements OnInit {
     
-    signupForm: FormGroup;
+    private signupForm: FormGroup;
+    private formErrors: any;
+    private isEmailSent: boolean;
     
-    constructor(private formBuilder: FormBuilder, private authService: AuthService) {}
+    constructor(private formBuilder: FormBuilder, private authService: AuthService,  private validationService: ValidationService) {}
     
     ngOnInit() {
 
@@ -22,6 +25,10 @@ export class SignupFormComponent implements OnInit {
         email: ['', Validators.required],
         password: ['', Validators.required]
         });
+        
+      this.formErrors = {teamName: {error: '', messages: ''}, email: {error: '', messages: ''}, password: {error: '', messages: ''}};
+        this.signupForm.valueChanges
+         .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.signupForm, this.formErrors, data));
     }
     
     signup() {
@@ -32,8 +39,11 @@ export class SignupFormComponent implements OnInit {
                     password: Md5.hashStr(this.signupForm.value.password)};
                   
         this.authService.signUp(user)
-          .then(() => null);
+          .then(() => {this.isEmailSent = true;});
         }
+        else {
+         this.formErrors = this.validationService.onSubmit(this.signupForm, this.formErrors);
+      }
     }
 }
  

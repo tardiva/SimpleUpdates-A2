@@ -231,7 +231,7 @@ section.new-update {
 
 .login-brand {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 .form-title {
@@ -260,12 +260,23 @@ section.new-update {
 }
 
 .panel-login .input-group, #team {
-    margin-bottom: 17px;
+    margin-top: 17px;
 }
 
 .panel-login .btn {
     margin-top: 27px;
 }
+
+.panel-login .alert {
+    font-size: 0.875rem; 
+    text-align: center;
+}
+
+.email-confirmation {
+    color: #0275d8;
+    margin-top: 30px;
+}
+
 
 /*-------PROJECTS LIST--------*/
 
@@ -283,6 +294,11 @@ section.new-update {
     padding-left: 15px;
 }
 
+.project-item.selected {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 div.project-item:hover , .selected {
     background-color: #eceeef;
 }
@@ -297,6 +313,9 @@ div.project-item:hover , .selected {
     text-align: left;
 }
 
+.checkbox {
+    height: 33px;
+}
 /*-------NEW PROJECT FORM-------*/
 
 .page-header{

@@ -16,6 +16,11 @@ var ProjectsListComponent = (function () {
         this.projectsDataService = projectsDataService;
         this.userService = userService;
     }
+    ProjectsListComponent.prototype.ngOnInit = function () {
+        this.getProjects();
+        this.getManagersList();
+        this.isFormHidden = true;
+    };
     ProjectsListComponent.prototype.getProjects = function () {
         var _this = this;
         this.projectsDataService.getProjects().then(function (projects) { return _this.projects = projects; });
@@ -34,11 +39,6 @@ var ProjectsListComponent = (function () {
         else {
             this.isFormHidden = true;
         }
-    };
-    ProjectsListComponent.prototype.ngOnInit = function () {
-        this.getProjects();
-        this.getManagersList();
-        this.isFormHidden = true;
     };
     ProjectsListComponent = __decorate([
         core_1.Component({

@@ -43,13 +43,14 @@ export class DropdownComponent implements ControlValueAccessor {
     
     writeValue(value: any) {
        
-        if (value !== undefined && this.placeholder) {
+        if (this.placeholder) {
             this.selectedValue = value;
             this.selectedLabel = this.placeholder;
             this.selectedIcon = '';
         }
-        else {
+        else if (value !== undefined) {
                let options = this.options;
+               console.log(options);
                for (let option of options)
                    {if (option.key == value) {
                        this.selectedValue = value;
