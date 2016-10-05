@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef} from '@angular/core';
+import { Component, Input, OnChanges, forwardRef} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -14,57 +14,52 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   
 })
 
-export class DropdownComponent implements ControlValueAccessor {
+export class DropdownComponent implements ControlValueAccessor, OnChanges {
     
+    private selectedValue: number;
     private selectedLabel: string;
     private selectedIcon: string;
-    
+        
     constructor() {}
-       
-    /*writeValue(value: any) {
-       if (value !== undefined) {
-           /*if (value == 0 || value == '') {*/
-        //this.selectedValue = value;
-       // this.selectedLabel = this.placeholder;
-      //  this.selectedIcon = '';
-        //}
-          /* else {
-               let options = this.options;
-               for (let option of options)
-                   {if (option.key == value) {
-                       this.selectedValue = option.key;
-                       this.selectedLabel = option.label;
-                       this.selectedIcon = option.icon;
-                   }}
-                   }*/
-      // }
-               
-   // }
     
+    ngOnChanges(options) {
+        
+       if (this.options && this.options.length > 0) {this.writeValue(this.selectedValue);};
+    }
+    
+    get value(): any {
+       return this.selectedValue;
+    }
+
+    set value(value: any) {
+       if (value !== undefined && value !== this.selectedValue) {
+            this.selectedValue = value;
+            this.propagateChange(this.selectedValue);
+       }
+    }
+  
     writeValue(value: any) {
        
-        if (this.placeholder) {
+       if (this.placeholder) {
             this.selectedValue = value;
             this.selectedLabel = this.placeholder;
             this.selectedIcon = '';
-        }
-        else if (value !== undefined) {
+       }
+       else if (value !== undefined) {
+               this.selectedValue = value;
                let options = this.options;
-               console.log(options);
                for (let option of options)
                    {if (option.key == value) {
-                       this.selectedValue = value;
                        this.selectedLabel = option.label;
                        this.selectedIcon = option.icon;
                    }}
-             }
+       }
     }
-    
-        
+            
     propagateChange = (_: any) => {};
     
     registerOnChange(fn) {
-       this.propagateChange = fn; 
+       this.propagateChange = fn;
     }
 
     registerOnTouched() {}
@@ -75,15 +70,12 @@ export class DropdownComponent implements ControlValueAccessor {
         this.selectedIcon = option.icon;
         
         this.propagateChange(this.selectedValue);
-        
-        
-        
     }
   
         
     @Input()  options: any[];
     @Input()  placeholder: string;
-    @Input()  selectedValue: number;
+    //@Input()  selectedValue: number;
     @Input()  hasErrors: boolean;
     
 }

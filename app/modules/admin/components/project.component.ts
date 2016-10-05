@@ -34,7 +34,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
             
      this.editProjectForm = this.formBuilder.group({
-        name: [/*this.project.name*/'', Validators.required],
+        name: [this.project.name, Validators.required],
         manager: [this.project.manager, Validators.required]  
      });
       
@@ -45,9 +45,7 @@ export class ProjectComponent implements OnInit {
      this.formErrors = {name: {error: '', messages: ''}, manager: {error: '', messages: ''}};
      this.editProjectForm.valueChanges
          .subscribe(data =>  this.formErrors = this.validationService.onValueChanged(this.editProjectForm, this.formErrors, data));
-      
-     console.log('Init test');
-     
+         
   }
     
   private getManagersList() {
@@ -58,12 +56,10 @@ export class ProjectComponent implements OnInit {
   private showRowEditor() {
     
     if (!this.editMode) {
-        //this.editMode = true;
         this.userService.getUsers().then((users) => { 
           this.usersOptions = users.map((item) => {return {key: item.id, label: item.first_name + ' ' + item.last_name}});
-          this.editProjectForm.setValue({name: this.project.name, manager: this.project.manager});
+          //this.editProjectForm.setValue({name: this.project.name, manager: this.project.manager});
           this.editMode = true;
-          console.log(this.editProjectForm.value);
         })
      }
   }

@@ -14,24 +14,25 @@ var DropdownComponent = (function () {
     function DropdownComponent() {
         this.propagateChange = function (_) { };
     }
-    /*writeValue(value: any) {
-       if (value !== undefined) {
-           /*if (value == 0 || value == '') {*/
-    //this.selectedValue = value;
-    // this.selectedLabel = this.placeholder;
-    //  this.selectedIcon = '';
-    //}
-    /* else {
-         let options = this.options;
-         for (let option of options)
-             {if (option.key == value) {
-                 this.selectedValue = option.key;
-                 this.selectedLabel = option.label;
-                 this.selectedIcon = option.icon;
-             }}
-             }*/
-    // }
-    // }
+    DropdownComponent.prototype.ngOnChanges = function (options) {
+        if (this.options && this.options.length > 0) {
+            this.writeValue(this.selectedValue);
+        }
+        ;
+    };
+    Object.defineProperty(DropdownComponent.prototype, "value", {
+        get: function () {
+            return this.selectedValue;
+        },
+        set: function (value) {
+            if (value !== undefined && value !== this.selectedValue) {
+                this.selectedValue = value;
+                this.propagateChange(this.selectedValue);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     DropdownComponent.prototype.writeValue = function (value) {
         if (this.placeholder) {
             this.selectedValue = value;
@@ -39,12 +40,11 @@ var DropdownComponent = (function () {
             this.selectedIcon = '';
         }
         else if (value !== undefined) {
+            this.selectedValue = value;
             var options = this.options;
-            console.log(options);
             for (var _i = 0, options_1 = options; _i < options_1.length; _i++) {
                 var option = options_1[_i];
                 if (option.key == value) {
-                    this.selectedValue = value;
                     this.selectedLabel = option.label;
                     this.selectedIcon = option.icon;
                 }
@@ -69,10 +69,6 @@ var DropdownComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], DropdownComponent.prototype, "placeholder", void 0);
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Number)
-    ], DropdownComponent.prototype, "selectedValue", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Boolean)
