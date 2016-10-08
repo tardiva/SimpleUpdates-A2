@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { httpAuth } from './httpAuth.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
 import { User } from '../models/user';
 
@@ -41,6 +42,8 @@ export class UserService {
     public addUser(user: User) {
         
         const url = this.usersUrl;
+        
+        user.password = Md5.hashStr(user.password);
                 
         return this.httpAuth
                .post(url, user)

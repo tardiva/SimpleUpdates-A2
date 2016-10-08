@@ -19,19 +19,21 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query" + err});
             } else {
-                if (!rows[0])
-                    {res.status(401).send('Unauthorized');};
+                if (!rows[0]) {
+                    res.status(401).send('Unauthorized');
+                }
                 if (rows[0])
                     {  var expires = new Date;
                        expires.setUTCDate(expires.getUTCDate() + 7);
-                       var issuer = rows[0].id
+                       var issuer = rows[0].id;
                        
                        var token = jwt.encode({
                          iss: issuer,
                          exp: expires
                         }, req.tokenKey);
-                        
-                        res.json({"Error" : false, "Success" : true, "data": rows[0], "token": token});};
+
+res.json({"Error": false, "Success": true, "data": rows[0], "token": token});
+                    }
             }
         });
     });
@@ -67,7 +69,7 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
                 
         function(req,res){
         var query = "INSERT INTO `users`(`is_active`, `tenant_id`, `email`,`password`,`is_admin`,`first_name`,`last_name`) VALUES (?,?,?,?,?,?,?)";
-        var table = [0, req.tenantId, req.body.email, req.body.password, 1, req.body.firstName, req.body.lastName];
+        var table = [1, req.tenantId, req.body.email, req.body.password, 1, req.body.firstName, req.body.lastName];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -94,8 +96,8 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
     
     
     router.post("/users",jwtAuth, isAdmin, function(req,res){
-        var query = "INSERT INTO `users`(`is_active`, `email`,`is_admin`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?,?)";
-        var table = [0, req.body.email, req.body.isAdmin, req.body.firstName, req.body.lastName, req.tenant_id];
+        var query = "INSERT INTO `users`(`is_active`, `email`, `password`, `is_admin`,`first_name`,`last_name`,`tenant_id`) VALUES (?,?,?,?,?,?,?)";
+        var table = [1, req.body.email, req.body.password, req.body.isAdmin, req.body.firstName, req.body.lastName, req.tenant_id];
         query = mysql.format(query,table);
         connection.query(query,function(err,rows){
             if(err) {
@@ -210,6 +212,6 @@ REST_ROUTER.prototype.handleRoutes= function(router,connection) {
             }
         });
     });
-}
+};
 
 module.exports = REST_ROUTER;

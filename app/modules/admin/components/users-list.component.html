@@ -1,23 +1,25 @@
 <div class="container">
     <section class = "page-header col-md-10">
          <h3>Users</h3>
-         <input class = "btn btn-primary pull-lg-right" type="submit" value = "Add User" (click) = "showNewForm()">
+         <input class = "btn btn-primary pull-xs-right" (click) = "showNewForm()" type="submit" value = "Add User">
     </section>
     
-    <section id = "projects-list" class = "col-md-10">
+    <section class = "col-md-10" id = "projects-list">
             
             <div class = "table-header row">
+                <div>
                 <div class = "col-md-3">First Name</div>
                 <div class = "col-md-3">Last Name</div>
                 <div class = "col-md-3">Email</div>
-                <div class = "col-md-3">Administrator</div>
+                <div class = "col-md-1">Admin</div>
+                </div>
             </div>
             
-            <div class = "table-body">
+            <div class = "table-body row">
                <user *ngFor = "let user of users" [user] = "user" (userUpdated) = "getUsers()"></user>
             </div>   
         
     </section>
     
-    <user-form (newUser)="getUsers()" (closeForm) = "showNewForm()" [class.hidden] = "isFormHidden"></user-form>
+    <user-form [class.hidden] = "isFormHidden" (closeForm) = "showNewForm()" (newUser)="getUsers()"></user-form>
  </div>

@@ -1,23 +1,14 @@
-<!--<navigation></navigation>-->
-
 <div class = "container">
     
-<section class = "new-update col-xs-11 card card-outline-secondary card-block">
-          
-      <!--<div class="panel-body">-->
-        <update-form (newUpdate) = "getProjectsWithLastUpdate()"></update-form> 
-      <!--</div>-->
-         
-</section>
+   <section class = "new-update-panel col-xs-11 card card-outline-secondary card-block">
+      <update-form (newUpdate) = "getProjectsWithLastUpdate()"></update-form> 
+   </section>
     
+   <section class ="updates-list col-sm-10">
+      <update-item *ngFor="let project of projects" [project] = "project"></update-item>
+   </section>
     
-<section class ="updates col-sm-10">
-    
-    <update-item *ngFor="let project of projects" [project] = "project"></update-item>
-      
-</section>
-    
-<div>
+</div>
 
 
 

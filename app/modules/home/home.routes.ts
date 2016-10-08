@@ -18,6 +18,6 @@ const HOME_ROUTES: Routes = [
         ]
     }
     
-]
+];
 
 export const homeRouting: ModuleWithProviders = RouterModule.forChild(HOME_ROUTES);

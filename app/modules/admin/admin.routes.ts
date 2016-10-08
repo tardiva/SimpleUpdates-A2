@@ -14,8 +14,6 @@ const ADMIN_ROUTES: Routes = [
     {   path: 'users',
         component: UsersListComponent       
     },
-    
-    
-]
+];
 
 export const adminRouting: ModuleWithProviders = RouterModule.forChild(ADMIN_ROUTES);

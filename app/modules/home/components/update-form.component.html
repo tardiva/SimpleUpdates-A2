@@ -1,28 +1,25 @@
-<form id = "new-update-form" class = "new-update" [formGroup]="newUpdateForm">
+<form class = "edit-form new-update-form" [formGroup] = "newUpdateForm" id = "new-update-form">
 
- <div class = "form-content">
-      
   <div class = "status">
-    <dropdown [options] = "statusesOptions" [placeholder] = "'Status'" [hasErrors] = "formErrors.status.error" formControlName="status"></dropdown>
+    <dropdown formControlName = "status" [hasErrors] = "formErrors.status.error" [options] = "statusesOptions" [placeholder] = "'Status'"></dropdown>
     <p class = "validation-message" [class.hidden] = "!formErrors.status.error">{{formErrors.status.messages}}</p>
   </div>   
     
   <div class = "project">
-    <dropdown [options] = "projectsOptions" [placeholder] = "'Project'" [hasErrors] = "formErrors.project.error" formControlName="project"></dropdown>
+    <dropdown formControlName = "project" [hasErrors] = "formErrors.project.error" [options] = "projectsOptions" [placeholder] = "'Project'"></dropdown>
     <p class = "validation-message" [class.hidden] = "!formErrors.project.error">{{formErrors.project.messages}}</p>
   </div>
        
   <div class = "text">    
-    <textarea class="form-control" [class.has-errors] = "formErrors.text.error" id = "new-update-text" formControlName="text" (keyup) = "resize($event)"></textarea>
+    <textarea class = "form-control" [class.has-errors] = "formErrors.text.error" formControlName = "text" id = "new-update-text" (keyup) = "resize($event)"></textarea>
     <p class = "validation-message" [class.hidden] = "!formErrors.text.error">{{formErrors.text.messages}}</p>
   </div>
        
   <div class = "buttons">
     <div class = "pull-sm-right">
-      <button type="submit" class="btn btn-primary btn-sm" (click) = "addUpdate()">Submit</button>
-      <button type="button" class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()">Cancel</button>
+      <button class = "btn btn-primary btn-sm" (click) = "addUpdate()" type = "submit">Submit</button>
+      <button class = "btn btn-default btn-cancel btn-sm" (click) = "resetForm()" type = "button">Cancel</button>
     </div>
   </div>
- </div>
-    
+     
 </form>

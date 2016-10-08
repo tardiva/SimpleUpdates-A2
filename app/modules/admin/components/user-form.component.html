@@ -1,38 +1,41 @@
-<div class = "background">
-<div class = "wrapper card new-project">
-    <div class = "card-header card-primary dialog-header">
+<div class = "popup-background">
+<div class = "popup-wrapper card new-project">
+    <div class = "popup-header card-header card-primary">
         <h4>New User</h4>
     </div>
     
  <div class = "card-block">   
-<form id = "new-project-form" class = "new-project" [formGroup]="newUserForm">
+<form class = "edit-form new-project" [formGroup]="newUserForm" id = "new-project-form">
         
   <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "First Name" formControlName = "firstName" [class.has-errors] = "formErrors.firstName.error">
+    <input class = "new-project-name form-control" [class.has-errors] = "formErrors.firstName.error" formControlName = "firstName" placeholder = "First Name" type = "text">
     <p class = "validation-message" [class.hidden] = "!formErrors.firstName.error">{{formErrors.firstName.messages}}</p>
   </div>
     
    <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "Last Name" formControlName = "lastName" [class.has-errors] = "formErrors.lastName.error">
+    <input class = "new-project-name form-control" [class.has-errors] = "formErrors.lastName.error" formControlName = "lastName" placeholder = "Last Name" type = "text">
     <p class = "validation-message" [class.hidden] = "!formErrors.lastName.error">{{formErrors.lastName.messages}}</p>
    </div>
     
     <div class = "form-group"> 
-    <input class = "new-project-name form-control" type = "text" placeholder = "Email" formControlName = "email" [class.has-errors] = "formErrors.email.error">
+    <input class = "new-project-name form-control" [class.has-errors] = "formErrors.email.error" formControlName = "email" placeholder = "Email" type = "text">
     <p class = "validation-message" [class.hidden] = "!formErrors.email.error">{{formErrors.email.messages}}</p>   
+    </div>
+    
+    <div class = "form-group"> 
+    <input class = "new-project-name form-control" [class.has-errors] = "formErrors.password.error" formControlName = "password"  placeholder = "Password" type = "password">
+    <p class = "validation-message" [class.hidden] = "!formErrors.password.error">{{formErrors.password.messages}}</p>   
     </div>
     
     <div class="form-check">
     <label class="form-check-label">
-    <input type="checkbox" class="form-check-input" formControlName = "isAdmin">
-      Administrator
-    </label>
+    <input class="form-check-input" formControlName = "isAdmin" type="checkbox">Administrator</label>
    </div>
     
   <div class = "form-group">    
-    <button type="submit" class="new-project-btn btn btn-primary btn-sm" (click)="addUser()">Submit</button>
+    <button class="new-project-btn btn btn-primary btn-sm" (click)="addUser()" type="submit">Submit</button>
        
-    <button type="button" class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()">Cancel</button>
+    <button class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()" type="button">Cancel</button>
   </div>
     
 </form>

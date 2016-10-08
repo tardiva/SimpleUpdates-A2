@@ -1,28 +1,33 @@
-<div (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()" class = "project-item row" [class.selected] = "editMode">
-    
-  <div class = "row" [class.hidden] = "editMode">
-    <div class = "col-md-6">
+<div class = "table-item" [class.selected] = "editMode" (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()">
+   
+   <div class = "row" [class.hidden] = "editMode">
+      <div class = "col-md-5">
       {{project.name}}
-    </div>
-    <div class = "col-md-6">
+      </div>
+      <div class = "col-md-5">
       {{project.first_name}} {{project.last_name}}
-    </div>
-  </div>
-
-  <form [formGroup]= "editProjectForm" (ngSubmit) = "editProject()" class = "row edit-mode" [class.hidden] = "!editMode">
-    <div class = "col-md-6">
-        <input [class.has-errors] = "formErrors.name.error" formControlName = "name">
-        <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
-    </div>
-    <div class = "col-md-6">
-        <dropdown [options] = "usersOptions" [hasErrors] = "formErrors.manager.error" formControlName = "manager"></dropdown>
-        <p class = "validation-message" [class.hidden] = "!formErrors.manager.error">{{formErrors.manager.messages}}</p>
-    </div>
-  </form>
+      </div>
+   </div>
+  
+   <form class = "edit-form row edit-mode" [class.hidden] = "!editMode" [formGroup]= "editProjectForm" (ngSubmit) = "editProject()">
+       
+      <div class = "col-md-5">
+         <input class = "table-text-input" [class.has-errors] = "formErrors.name.error" formControlName = "name">
+         <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
+      </div>
+       
+      <div class = "col-md-5">
+         <dropdown formControlName = "manager" [hasErrors] = "formErrors.manager.error" [options] = "usersOptions"></dropdown>
+         <p class = "validation-message" [class.hidden] = "!formErrors.manager.error">{{formErrors.manager.messages}}</p>
+      </div>
+       
+      <div class = "col-md-2">
+         <div class = "table-buttons  pull-xs-right">
+            <button class = "btn btn-success" type = "submit"><span class="table-button-save octicon octicon-check"></span></button>
+            <button class = "btn btn-danger"><span class="table-button-delete octicon octicon-x"></span></button>
+         </div>
+      </div>
+       
+   </form>
     
 </div>
-
-
-           
-                    
-

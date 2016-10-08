@@ -4,15 +4,18 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
-    
-  constructor(private authService: AuthService) {}
 
-  canActivate() {
-    
-      if (this.authService.isLoggedIn()) { return true; }
-        else {
-          this.authService.logout();  
-          return false;
+    constructor(private authService: AuthService) {
+    }
+
+    canActivate() {
+
+        if (this.authService.isLoggedIn()) {
+            return true;
         }
-  }
+        else {
+            this.authService.logout();
+            return false;
+        }
+    }
 }

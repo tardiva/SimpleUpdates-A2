@@ -2,21 +2,29 @@
   <h2 class = "login-brand">Simple Updates</h2>
     
   <div *ngIf = "!isEmailSent">  
-     <h3 class = "form-title">Create new Team</h3>
+     <h3 class = "login-form-title">Create new Team</h3>
     
      <div class="panel panel-default panel-login"> 
       
-       <form id = "signupForm" [formGroup] = "signupForm" (ngSubmit) = "signup()">
+       <form [formGroup] = "signupForm" id = "signupForm" (ngSubmit) = "signup()">
               
-         <input class = "form-control" [class.has-errors] = "formErrors.teamName.error" type="text" id="team" placeholder="Team Name" formControlName = "teamName">
+         <input class = "form-control" [class.has-errors] = "formErrors.teamName.error" formControlName = "teamName" placeholder="Team Name" type="text">
          <p class = "validation-message" [class.hidden] = "!formErrors.teamName.error">{{formErrors.teamName.messages}}</p>
+           
+         <input class = "form-control" [class.has-errors] = "formErrors.firstName.error" formControlName = "firstName" placeholder="First Name" type="text">
+         <p class = "validation-message" [class.hidden] = "!formErrors.firstName.error">{{formErrors.firstName.messages}}</p>
+           
+         <input class = "form-control" [class.has-errors] = "formErrors.lastName.error" formControlName = "lastName" placeholder="Last Name" type="text">
+         <p class = "validation-message" [class.hidden] = "!formErrors.lastName.error">{{formErrors.lastName.messages}}</p>
+       
+       
        
          <div class = "input-group" [class.has-errors] = "formErrors.email.error">
            <span class="input-group-addon">
             <!--<span class= "glyphicon glyphicon-envelope"></span>-->
               <span class="octicon octicon-mail"></span>
            </span> 
-           <input class = "form-control" type="email" name="signupEmail" placeholder="Email" formControlName = "email">
+           <input class = "form-control" formControlName = "email" name="signupEmail" placeholder="Email" type="email">
          </div>
          <p class = "validation-message" [class.hidden] = "!formErrors.email.error">{{formErrors.email.messages}}</p>
         
@@ -25,7 +33,7 @@
             <!--<span class = "glyphicon glyphicon-asterisk"></span>-->
                <span class="octicon octicon-key"></span>
             </span>  
-            <input class = "form-control" type="password" name="signupPassword" placeholder="Password" formControlName = "password">
+            <input class = "form-control" formControlName = "password" name="signupPassword" placeholder="Password"  type="password">
          </div>
          <p class = "validation-message" [class.hidden] = "!formErrors.password.error">{{formErrors.password.messages}}</p>
           

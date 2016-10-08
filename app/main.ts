@@ -2,15 +2,13 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ReflectiveInjector } from '@angular/core';
 import { HTTP_PROVIDERS, Http, XSRFStrategy } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-
 import { AppModule } from './app.module';
 
-
-//workaround for angular issue #9294
+/*---workaround for angular issue #9294---*/
 var XRSF_MOCK = { provide: XSRFStrategy, useValue: {
-    configureRequest: function(req) { /* */ }
+    configureRequest: function(req) { }
 } };
-
+/*------*/
 
 var injector = ReflectiveInjector.resolveAndCreate([HTTP_PROVIDERS,  XRSF_MOCK]);
 var http = injector.get(Http);

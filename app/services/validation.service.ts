@@ -11,10 +11,11 @@ export class ValidationService {
     }
 
     public onValueChanged(form: any, formErrors: any, data?: any) {
-    
-     if (!form) { return;};
-                         
-     for (let el in formErrors) {
+
+    if (!form) {
+            return;
+        }
+        for (let el in formErrors) {
        
        formErrors[el] = {error: '', messages: ''};
        const control = form.controls[el];

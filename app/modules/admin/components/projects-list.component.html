@@ -1,25 +1,24 @@
-
 <div class="container">
     <section class = "page-header col-md-10">
          <h3>Projects</h3>
-         <input class = "btn btn-primary pull-lg-right" type="submit" value = "Add Project" (click) = "showNewForm()">
+         <input class = "btn btn-primary pull-xs-right" (click) = "showNewForm()" type="submit" value = "Add Project">
     </section>
     
-    <section id = "projects-list" class = "col-md-10">
+    <section class = "col-md-10" id = "projects-list" >
             
             <div class = "table-header row">
-                <div class = "col-md-6 cell">Project Name</div>
-                <div class = "col-md-6 cell">Project Manager</div>
+                <div class = "col-md-5">Project Name</div>
+                <div class = "col-md-5">Project Manager</div>
+                <div class = "col-md-2"></div>
             </div>
-            
-            <div class = "table-body">
+            <div class = "table-body row">
                <project *ngFor = "let project of projects" [project] = "project" (projectUpdated) = "getProjects()"></project>
             </div>   
         
     </section>
  </div>
 
-<project-form (newProject)="getProjects()" (closeForm) = "showNewForm()" [usersOptions] = "usersOptions" [class.hidden] = "isFormHidden"></project-form>
+<project-form [class.hidden] = "isFormHidden" (closeForm) = "showNewForm()" (newProject)="getProjects()" [usersOptions] = "usersOptions"></project-form>
 
 
 

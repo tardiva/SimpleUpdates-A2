@@ -12,8 +12,7 @@ app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 function REST(){
     var self = this;
     self.connectMysql();
-};
-
+}
 REST.prototype.connectMysql = function() {
     var self = this;
     var pool      =    mysql.createPool({
@@ -31,7 +30,7 @@ REST.prototype.connectMysql = function() {
             self.configureExpress(connection);
         }
     });
-}
+};
 
 REST.prototype.configureExpress = function(connection) {
     var self = this;
@@ -55,18 +54,18 @@ REST.prototype.configureExpress = function(connection) {
     app.use(['/admin/projects', '/admin/users'], function (req, res) {res.sendFile("index.html", { root: './public' });});
 
     self.startServer();
-}
+};
 
 REST.prototype.startServer = function() {
     app.listen(8000,function(){
         console.log("All right ! I am alive at Port 8000.");
     });
-}
+};
 
 REST.prototype.stop = function(err) {
     console.log("ISSUE WITH MYSQL n" + err);
     process.exit(1);
-}
+};
 
 new REST();
 

@@ -8,10 +8,8 @@ import { Project} from '../../../models/project';
 
 export class UpdateComponent {
        
-constructor() {
-         
-    }   
+constructor() { }
 
-@Input() project: any;
+@Input() project: Project[];
 
 }

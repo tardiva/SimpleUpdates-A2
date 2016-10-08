@@ -29,7 +29,12 @@ constructor(private http: Http, /*private authService: AuthService, */private ro
        return this.http.get(url, {headers: headers})
                .toPromise()
                .then(response => response.json().data as any[])
-               .catch(error => {this.handleError(error); if (error.status == 401) {this.router.navigate(['/login'])};});     
+           .catch(error => {
+               this.handleError(error);
+               if (error.status == 401) {
+                   this.router.navigate(['/login'])
+               }
+           });
     } 
     
     public post(url, data): Promise<void> {

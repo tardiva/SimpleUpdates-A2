@@ -1,29 +1,28 @@
-<div class = "background">
-<div class = "wrapper card new-project">
-    <div class = "card-header card-primary dialog-header">
-        <h4>New Project</h4>
-    </div>
+<div class = "popup-background">
+   <div class = "popup-wrapper card new-project">
+      <div class = "popup-header card-header card-primary">
+         <h4>New Project</h4>
+      </div>
     
- <div class = "card-block">   
-<form id = "new-project-form" class = "new-project" [formGroup]="newProjectForm">
+      <div class = "card-block">   
+         <form class = "edit-form new-project" [formGroup]="newProjectForm" id = "new-project-form">
         
-  <div class = "form-group"> 
-    <input id = "add-project-name" class = "new-project-name form-control" type = "text" placeholder = "Project Name" [class.has-errors] = "formErrors.name.error" formControlName = "name">
-    <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
-  </div>
+            <div class = "form-group"> 
+               <input class = "popup-text-input form-control" [class.has-errors] = "formErrors.name.error" formControlName = "name" id = "add-project-name" placeholder = "Project Name" type = "text">
+               <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.name.messages}}</p>
+            </div>
     
-   <div class = "form-group"> 
-    <dropdown [options] = "usersOptions" [placeholder] = "'Project Manager'" formControlName = "manager" [hasErrors] = "formErrors.manager.error"></dropdown>
-    <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.manager.messages}}</p>
-  </div>  
+            <div class = "form-group"> 
+               <dropdown class = "popup-dropdown" formControlName = "manager" [hasErrors] = "formErrors.manager.error" [options] = "usersOptions" [placeholder] = "'Project Manager'"></dropdown>
+               <p class = "validation-message" [class.hidden] = "!formErrors.name.error">{{formErrors.manager.messages}}</p>
+            </div>  
     
-  <div class = "form-group">    
-    <button type="submit" class="new-project-btn btn btn-primary btn-sm" (click)="addProject()">Submit</button>
-       
-    <button type="button" class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()">Cancel</button>
-  </div>
+            <div class = "form-group">    
+               <button class="new-project-btn btn btn-primary btn-sm" (click)="addProject()" type="submit" >Submit</button>
+               <button class="btn btn-default btn-cancel btn-sm" (click) = "resetForm()" type="button" >Cancel</button>
+            </div>
     
-</form>
-    </div>
-</div>
+         </form>
+      </div>
+   </div>
 </div>

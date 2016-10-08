@@ -1,17 +1,8 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { LoggedInGuard } from './guards/logged-in.guard';
-
 import { LoginFormComponent } from './modules/login/components/login.component';
 import { SignupFormComponent } from './modules/login/components/signup.component';
-
-
-/*const APP_ROUTES: Routes = [
-
-    { path: '', component: LoginFormComponent },
-    { path: 'signup', component: SignupFormComponent }
-];*/
 
 const loginRoutes: Routes = [
     

@@ -1,4 +1,4 @@
-<div (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()" class = "project-item row" [class.selected] = "editMode">
+<div class = "table-item" [class.selected] = "editMode" (click) = "showRowEditor()" (clickOutside) = "hideRowEditor()">
     
   <div class = "row" [class.hidden] = "editMode">
     <div class = "col-md-3">
@@ -10,28 +10,34 @@
     <div class = "col-md-3">
       {{user.email}}
     </div>
-    <div class = "col-md-3">
+    <div class = "col-md-1">
         <span *ngIf = "user.is_admin">Yes</span>
     </div>
       
   </div>
 
-  <form [formGroup]= "editUserForm" (ngSubmit) = "editUser()" class = "row edit-mode" [class.hidden] = "!editMode">
+  <form class = "edit-form row edit-mode" [class.hidden] = "!editMode" [formGroup]= "editUserForm" (ngSubmit) = "editUser()">
     <div class = "col-md-3">
-        <input formControlName = "firstName" (keypress) = "submit($event)" [class.has-errors] = "formErrors.firstName.error">
+        <input class = "table-text-input" [class.has-errors] = "formErrors.firstName.error" formControlName = "firstName" (keypress) = "submit($event)">
         <p class = "validation-message" [class.hidden] = "!formErrors.firstName.error">{{formErrors.firstName.messages}}</p>
     </div>
     <div class = "col-md-3">
-        <input formControlName = "lastName" (keypress) = "submit($event)" [class.has-errors] = "formErrors.lastName.error">
+        <input class = "table-text-input" [class.has-errors] = "formErrors.lastName.error" formControlName = "lastName" (keypress) = "submit($event)">
         <p class = "validation-message" [class.hidden] = "!formErrors.lastName.error">{{formErrors.lastName.messages}}</p>
     </div>
     <div class = "col-md-3">
-        <input formControlName = "email" disabled>
+        <input class = "table-text-input" formControlName = "email" disabled>
     </div>
-    <div class = "col-md-3 checkbox">
-        <input type="checkbox" formControlName = "isAdmin">
+    <div class = "col-md-1 table-checkbox">
+        <input formControlName = "isAdmin" type="checkbox">
     </div>
+     <div class = "col-md-2">
+        <div class = "table-buttons  pull-xs-right">
+        <button class = "btn btn-success" type = "submit"><span class="table-button-save octicon octicon-check"></span></button>
+        <button class = "btn btn-danger"><span class="table-button-delete octicon octicon-x"></span></button>
+        <!--<button class="btn btn-info"><span class="table-button-delete octicon octicon-key"></span></button>-->  
+        </div>
+    </div> 
   </form>
     
 </div>
-

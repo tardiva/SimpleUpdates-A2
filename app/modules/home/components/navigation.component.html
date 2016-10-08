@@ -1,7 +1,12 @@
-<nav class = "navbar navbar-fixed-top navbar-dark bg-primary"> 
+<nav class = "navbar navbar-fixed-top navbar-dark bg-primary">
     
+  <button class="navbar-toggler hidden-md-up pull-xs-right" type="button" data-toggle="collapse" data-target="#collapsibleMenu" aria-controls="collapsibleMenu" aria-expanded="false" aria-label="Toggle navigation">
+    &#9776;
+  </button>
+   
   <a class="navbar-brand" href="#">Simple Updates</a>
-      
+   
+  <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar"> 
   <ul class="nav navbar-nav">
     <li class="nav-item">
       <a class = "nav-link" href="#" [routerLink] = "['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Updates</a>
@@ -18,7 +23,7 @@
     </li>
    </ul>
         
-  <ul class="nav navbar-nav pull-lg-right">     
+  <ul class="nav navbar-nav pull-sm-right">     
     <li class = "nav-item dropdown">
       <a class = "nav-link dropdown-toggle current-user" data-toggle = "dropdown" href="#" role="button">
         {{currentUserName}}
@@ -30,5 +35,27 @@
       </div>     
     </li>
   </ul>
-      
+  </div>
 </nav>
+
+<div class="collapse navbar__collapsible-menu" id="collapsibleMenu">
+    <div>
+      <ul>
+          <li>
+              <a class = "navbar__collapsible-menu-link" href="#" [routerLink] = "['/']">Updates</a>
+          </li>
+          <li *ngIf = "isAdmin">
+              <div class = "navbar__collapsible-menu-divider"><span class = "navbar__collapsible-menu-section-title">Administration</span></div>
+              <a class = "navbar__collapsible-menu-link" href="#" [routerLink] = "['/admin/projects']">Projects</a>
+              <a class = "navbar__collapsible-menu-link" href="#" [routerLink] = "['/admin/users']">Users</a>
+          </li>
+          <li>
+              <div class = "navbar__collapsible-menu-divider"><span class = "navbar__collapsible-menu-section-title">User</span></div>
+              <a class = "navbar__collapsible-menu-link" href="#">My Profile</a>
+              <a class = "navbar__collapsible-menu-link" href="#" (click) = "logout($event)" >Logout</a>
+          </li>
+      </ul>
+    </div>
+</div>
+
+

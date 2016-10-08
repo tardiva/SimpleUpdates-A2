@@ -1,6 +1,17 @@
 body { 
-    padding-top: 100px;
+    padding-top: 55px;
 }
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+/*-------NAVBAR--------*/
 
 a.current-user {
     color: #fff;
@@ -10,43 +21,255 @@ a.current-user {
     margin: 0 5px;
 }
 
-/*-------FORM--------*/
-
-form input {
-   overflow: hidden;
-   text-overflow: ellipsis;
+.navbar-toggler {
+    color: #fff;
 }
 
-section.new-update {
-    margin-bottom: 50px;
-    /*padding-bottom: 4px;*/
-} 
+.navbar__collapsible-menu {
+    
+    background-color: #484848;
+    color: #fff;
+    padding: 8px 0;
+}
 
-.card select, .card button, .card textarea,
-.project-item input, .project-item button {
-     height: 33px;
+.navbar__collapsible-menu-link {
+    display: block; 
+    color: #fff;
+    padding: 8px 16px;
+}
+
+.navbar__collapsible-menu-link:hover {
+    color: #949393;
+    text-decoration: none;
+}
+
+.navbar__collapsible-menu-divider {
+    background-color: #949393;
+    padding: 8px 0;
+}
+
+.navbar__collapsible-menu-section-title {
+    padding: 0 16px;
+    color: #484848;
+    font-weight: 700;
+}
+
+/*------- EDIT FORM--------*/
+
+.edit-form {
+   font-size: .875rem; 
+}
+
+.edit-form select, .edit-form button, .edit-form textarea, .edit-form input {
+   height: 33px;
+}
+
+.edit-form input {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   border-width: 1px;
+   border-radius: .2rem;
+}
+
+.edit-form textarea {
+   font-size: .875rem; 
+   overflow: hidden;
+   resize: none;
 }
 
 .btn-cancel {
-    color: #fff;
-    background-color: #9f9c9c;
-    border-color: #7e7b7b;
+   color: #fff;
+   background-color: #9f9c9c;
+   border-color: #7e7b7b;
 }
 
-.btn-cancel:hover, .btn-cancel:focus, .btn-cancel.focus, .btn-cancel:active, .btn-cancel.active {
+.btn-cancel:hover, .btn-cancel:focus, .btn-cancel:active, .btn-cancel.focus, .btn-cancel.active {
     color: #fff;
     background-color: #7e7b7b;
     border-color: #605f5f;
 }
 
-.form-content {
+/*-------DROPDOWN--------*/
+
+/*.main-dd-btn {
+   display: flex;
+   justify-content: flex-start;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.dropdown a {
+   text-decoration: none
+}
+
+.dropdown-item .circle,  .dropdown-item span {
+   vertical-align: middle;
+}*/
+
+/*-------POPUP-------*/
+
+.popup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(72,72,72,0.7);
+}
+
+.popup-wrapper {
+    background-color: #fff;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    border: 0 !important;
+}
+
+.popup-header {
+    color: #fff;
+}
+
+.popup-text-input {
+   width: 100%;
+   font-size: .875rem !important;
+}
+
+.popup-dropdown.main-dd-btn {
+    width: 238px;
+}
+
+/*-------EDITABLE TABLES--------*/
+
+.table-header {
+    font-weight: bold;
+}
+
+.table-header, .table-item {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #eceeef;
+}
+
+.table-item {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.table-item.selected{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+div.table-item:hover , .selected {
+    background-color: #eceeef;
+}
+
+.table-text-input {
+    padding-left: 8px;
+    width: 100%;
+}
+
+.table-item .main-dd-btn {
+    width: 154px;
+    text-align: left;
+}
+
+.table-checkbox {
+    height: 33px;
+}
+
+.table-buttons button {
+    width: 30px;
+    text-align: center;
+    padding: 0;
+}
+
+@media (max-width: 770px) {
+
+.table-text-input, .table-item .main-dd-btn {
+    margin-bottom: 12px;
+}
+
+}
+
+/*-------LOGIN PAGE--------*/
+
+.login-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-left: -150px;
+}
+
+.panel-login {
+    padding: 40px;
+    width: 300px;    
+}
+
+.login-brand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form-title {
+    color: #808080;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.panel-login .input-group {
+    border-radius: .25rem;
+}
+
+.input-group-addon {
+    color: grey;
+}
+
+.sign-up-link {
+    display: block;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    top: 12px;
+}
+
+.panel-login .input-group, #team {
+    margin-top: 17px;
+}
+
+.panel-login .btn {
+    margin-top: 27px;
+}
+
+.panel-login .alert {
+    font-size: 0.875rem; 
+    text-align: center;
+}
+
+.email-confirmation {
+    color: #0275d8;
+    margin-top: 30px;
+}
+
+/*------- NEW UPDATE FORM--------*/
+
+section.new-update-panel {
+    margin-bottom: 50px;
+} 
+
+.new-update-form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.form-content > div {
+.new-update-form > div {
     display: inline-block;
     vertical-align: middle;
 }
@@ -65,27 +288,17 @@ section.new-update {
 
 .text textarea {
     width: 100%;
-    font-size: .875rem;
-    overflow: hidden;
-    resize: none;
 }
 
 .buttons {
     width: 20%;
 }
 
-.has-errors {
-    border: 1px solid red !important;
-}
 
 @media (max-width: 1200px) {
-    
+
     .text {
     width: 50%;
-}
-
-    .text textarea {
-    width: 100%;
 }
 
     .buttons {
@@ -96,7 +309,16 @@ section.new-update {
 }
 
 @media (max-width: 990px) {
-   
+
+    .status .main-dd-btn {
+    width: 200px;
+}
+
+    .project .main-dd-btn{
+    width: 200px;
+}    
+    
+    
     .status {
     width: 100%;
 }
@@ -111,42 +333,15 @@ section.new-update {
     margin-top: 10px
 }
 
-    .text textarea {
-    width: 100%;
-}
-
     .buttons {
     width: 100%;
     margin-top: 10px;
 }
-    
-}
-
-/*-------DROPDOWN--------*/
-
-.main-dd-btn {
-   display: flex;
-   justify-content: flex-start;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-}
-
-.dropdown a {
-   text-decoration: none
-}
-
-.dropdown-item .circle,  .dropdown-item span {
-    vertical-align: middle;
-}
-
-/*.dropdown-item span, .main-dd-btn span {
-    display: inline-block;*/
 }
 
 /*-------UPDATES LIST--------*/
 
-.updates {
+.updates-list {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
 }
@@ -166,8 +361,6 @@ section.new-update {
 .circle {
   background-color: #9f9c9c;
   border-radius:9px;
-  /*border: 2px solid #58878b;*/
-  /*margin: auto;*/
   width: 15px;
   height:15px; 
   margin-right: 10px;
@@ -209,114 +402,7 @@ section.new-update {
     font-weight: 600;
 }
 
-#add-project-name {
-    width: 100%;
-}
-
-/*-------LOGIN--------*/
-
-.login-wrapper {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    //margin-top: -250px;
-    margin-left: -150px;
-    //min-height: 500px;
-}
-
-.panel-login {
-    padding: 40px 40px 40px 40px;
-    width: 300px;    
-}
-
-.login-brand {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-title {
-    color: #808080;
-    font-size: 20px;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 22px;
-}
-
-
-.input-group-addon {
-    color: grey;
-}
-
-#sign-up-link {
-    display: block;
-    font-weight: 500;
-    text-align: center;
-    //position: absolute;
-    //bottom: 8%;
-    //left: 50%;
-    //margin-left: -24px;
-    position: relative;
-    top: 12px;
-}
-
-.panel-login .input-group, #team {
-    margin-top: 17px;
-}
-
-.panel-login .btn {
-    margin-top: 27px;
-}
-
-.panel-login .alert {
-    font-size: 0.875rem; 
-    text-align: center;
-}
-
-.email-confirmation {
-    color: #0275d8;
-    margin-top: 30px;
-}
-
-
-/*-------PROJECTS LIST--------*/
-
-.table-header {
-    font-weight: bold;
-}
-
-.table-header, .project-item {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-top: 1px solid #eceeef;
-}
-
-.project-item {
-    padding-left: 15px;
-}
-
-.project-item.selected {
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-div.project-item:hover , .selected {
-    background-color: #eceeef;
-}
-
-.project-item input {
-    
-    padding-left: 8px;
-}
-
-.project-item .main-dd-btn {
-    width: 154px;
-    text-align: left;
-}
-
-.checkbox {
-    height: 33px;
-}
-/*-------NEW PROJECT FORM-------*/
+/*-------ADMIN PAGES--------*/
 
 .page-header{
     height: 34px;
@@ -333,38 +419,14 @@ div.project-item:hover , .selected {
     vertical-align: middle;
 }
 
-.dropdown button {
-    line-height: 100%;
-}
-
-.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(72,72,72,0.7);
-}
-
-.wrapper {
-    background-color: #fff;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    margin-left: -150px;
-    width: 300px;
-    border: 0 !important;
-}
-
-.card-header {
-    background-color: #0275d8;
-    color: #fff;
-}
-
 /*-------COMMON-------*/
 
 .hidden {
     display: none;
+}
+
+.has-errors {
+    border: 1px solid red !important;
 }
 
 .validation-message {
